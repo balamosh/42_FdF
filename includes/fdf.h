@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/10/27 05:07:02 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/10/27 18:06:42 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 
 # include <stdlib.h>
+# include <math.h>
 # include "mlx.h"
 
 typedef enum s_bool
@@ -27,6 +28,13 @@ typedef struct s_pixel
 	int	x;
 	int	y;
 }				t_pixel;
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+	double	z;
+}				t_point;
 
 typedef struct s_image
 {
