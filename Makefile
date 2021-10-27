@@ -7,13 +7,14 @@ HEAD_DIR	= includes/
 SRCS_FILES	= main.c				\
 			  ft_fdf_init.c			\
 			  ft_malloc.c			\
-			  ft_mlx_pixel_put.c
-HEAD_FILES	= fdf.h
+			  ft_mlx_pixel_put.c	\
+			  test_dep.c
+
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 
 SRCS 		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS		= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
-HEAD		= $(addprefix $(HEAD_DIR), $(HEAD_FILES))
+DEP			= $(OBJS:.o=.d)
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -O3
@@ -29,20 +30,23 @@ endif
 
 all: $(NAME)
 	
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEAD) | $(OBJS_DIR) mlx
-	$(CC) $(CFLAGS) -o $@ -c $< -I $(HEAD_DIR)
+-include $(DEP)
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR) $(MLX)
+	$(CC) $(CFLAGS) -MMD -I $(HEAD_DIR) -o $@ -c $<
 
 $(OBJS_DIR):
 	mkdir $@
 
-mlx:
+$(MLX):
 	make -C $(dir $(MLX))
 
 clean: 
 	rm -rf $(OBJS_DIR)
+	-rm $(DEP)
 	make -C $(dir $(MLX)) clean
 
 fclean: clean
