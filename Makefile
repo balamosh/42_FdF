@@ -4,7 +4,10 @@ SRCS_DIR	= srcs/
 OBJS_DIR	= objs/
 HEAD_DIR	= includes/
 
-SRCS_FILES	= main.c
+SRCS_FILES	= main.c				\
+			  ft_fdf_init.c			\
+			  ft_malloc.c			\
+			  ft_mlx_pixel_put.c
 HEAD_FILES	= fdf.h
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 
@@ -26,10 +29,10 @@ endif
 
 all: $(NAME)
 	
-$(NAME): $(OBJS_DIR) $(OBJS) 
+$(NAME): $(OBJS) 
 	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(MLX) $(HEAD) | $(OBJS_DIR) mlx
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEAD) | $(OBJS_DIR) mlx
 	$(CC) $(CFLAGS) -o $@ -c $< -I $(HEAD_DIR)
 
 $(OBJS_DIR):

@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/10/27 03:13:52 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/10/27 04:13:28 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef enum s_bool
 	false,
 	true
 }			t_bool;
+
+typedef struct s_pixel
+{
+	int	x;
+	int	y;
+}				t_pixel;
 
 typedef struct s_image
 {
@@ -46,6 +52,8 @@ typedef struct s_fdf
 	t_image		*image;
 }				t_fdf;
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+t_bool	ft_malloc(void **ptr, size_t n);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+t_fdf	*ft_fdf_init(void);
 
 #endif
