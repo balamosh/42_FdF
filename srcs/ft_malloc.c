@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/10/27 03:24:36 by sotherys         ###   ########.fr       */
+/*   Created: 2021/10/27 03:24:21 by sotherys          #+#    #+#             */
+/*   Updated: 2021/10/27 03:24:22 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_fdf(void)
+t_bool	ft_malloc(void **ptr, size_t n)
 {
-	t_fdf	*tab;
-
-	if (!ft_fdf_init(tab))
-		return ;
-	mlx_loop(tab->mlx_ptr);
-}
-
-int	main(void)
-{
-	ft_fdf();
-	return (0);
+	*ptr = malloc(n);
+	if (*ptr)
+		return (true);
+	return (false);
 }

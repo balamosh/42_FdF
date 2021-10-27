@@ -1,50 +1,50 @@
 NAME		= fdf
 
-SRCS_PATH	= srcs/
-OBJS_PATH	= objs/
-HEAD_PATH	= includes/
+SRCS_DIR	= srcs/
+OBJS_DIR	= objs/
+HEAD_DIR	= includes/
 
 SRCS_FILES	= main.c
 HEAD_FILES	= fdf.h
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 
-SRCS 		= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
-OBJS		= $(addprefix $(OBJS_PATH), $(OBJS_FILES))
-HEAD		= $(addprefix $(HEAD_PATH), $(HEAD_FILES))
+SRCS 		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
+OBJS		= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
+HEAD		= $(addprefix $(HEAD_DIR), $(HEAD_FILES))
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -O3
 
 OS			= $(shell uname)
 ifeq ($(OS), Linux)
-	MLX			= ./mlx_linux/libmlx.a
-	MLX_FLAGS	= -L $(dir $(MLX)) -l mlx -lXext -lX11 -lz 
+	MLX			= mlx_linux/libmlx.a
+	MLX_FLAGS	= -L $(dir $(MLX)) -l mlx -lXext -lX11 -lz
 else
-	MLX			= ./mlx/libmlx.a
+	MLX			= mlx/libmlx.a
 	MLX_FLAGS	= -L $(dir $(MLX)) -l mlx -framework OpenGL -framework AppKit
 endif
 
 all: $(NAME)
 	
-$(NAME): $(OBJS_PATH) $(OBJS) 
+$(NAME): $(OBJS_DIR) $(OBJS) 
 	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(MLX) $(HEAD)
-	$(CC) $(CFLAGS) -o $@ -c $< -I $(HEAD_PATH)
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(MLX) $(HEAD) | $(OBJS_DIR) mlx
+	$(CC) $(CFLAGS) -o $@ -c $< -I $(HEAD_DIR)
 
-$(OBJS_PATH):
+$(OBJS_DIR):
 	mkdir $@
 
-$(MLX):
-	make -C $(dir $@) $(notdir $@)
+mlx:
+	make -C $(dir $(MLX))
 
 clean: 
-	rm -rf $(OBJS_PATH)
-	make -C $(MLX) clean
+	rm -rf $(OBJS_DIR)
+	make -C $(dir $(MLX)) clean
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re $(MLX)
+.PHONY: all mlx clean fclean re

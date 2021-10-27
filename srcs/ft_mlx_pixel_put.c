@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_mlx_pixel_put.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/10/27 03:24:36 by sotherys         ###   ########.fr       */
+/*   Created: 2021/10/27 03:15:03 by sotherys          #+#    #+#             */
+/*   Updated: 2021/10/27 03:16:07 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_fdf(void)
+void	ft_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-	t_fdf	*tab;
+	char	*dst;
 
-	if (!ft_fdf_init(tab))
-		return ;
-	mlx_loop(tab->mlx_ptr);
-}
-
-int	main(void)
-{
-	ft_fdf();
-	return (0);
+	dst = img->ptr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *) dst = color;
 }
