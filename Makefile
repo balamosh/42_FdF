@@ -8,7 +8,7 @@ SRCS_FILES	= main.c				\
 			  ft_fdf_init.c			\
 			  ft_malloc.c			\
 			  ft_mlx_pixel_put.c	\
-			  test_dep.c
+			  ft_matrix3.c
 
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 

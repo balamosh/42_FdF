@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/10/27 04:04:17 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/03 04:44:33 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_bool	ft_window_init(t_fdf *tab)
 {
 	if (!ft_malloc((void *) &tab->window, sizeof(t_window)))
 		return (false);
-	tab->window->width = 1920;
+	tab->window->width = 1080;
 	tab->window->height = 1080;
 	tab->window->ptr = mlx_new_window(tab->mlx_ptr, \
 										tab->window->width, \
@@ -46,6 +46,29 @@ static t_bool	ft_image_init(t_fdf *tab)
 	return (true);
 }
 
+static t_bool	ft_projection_init(t_fdf *tab)
+{
+	tab->projection.matrix[0][0] = 1 / sqrt(2);
+	tab->projection.matrix[0][1] = 0;
+	tab->projection.matrix[0][2] = -1 / sqrt(2);
+	tab->projection.matrix[1][0] = 1 / sqrt(6);
+	tab->projection.matrix[1][1] = 2 / sqrt(6);
+	tab->projection.matrix[1][2] = 1 / sqrt(6);
+	tab->projection.matrix[2][0] = 1 / sqrt(3);
+	tab->projection.matrix[2][1] = -1 / sqrt(3);
+	tab->projection.matrix[2][2] = 1 / sqrt(3);
+	tab->rotation.matrix[0][0] = 1;
+	tab->rotation.matrix[0][1] = 0;
+	tab->rotation.matrix[0][2] = 0;
+	tab->rotation.matrix[1][0] = 0;
+	tab->rotation.matrix[1][1] = 1;
+	tab->rotation.matrix[1][2] = 0;
+	tab->rotation.matrix[2][0] = 0;
+	tab->rotation.matrix[2][1] = 0;
+	tab->rotation.matrix[2][2] = 1;
+	return (true);
+}
+
 t_fdf	*ft_fdf_init(void)
 {
 	t_fdf	*tab;
@@ -56,5 +79,7 @@ t_fdf	*ft_fdf_init(void)
 			&& ft_window_init(tab)
 			&& ft_image_init(tab)))
 		return (NULL);
+	ft_projection_init(tab);
+	tab->lmb = false;
 	return (tab);
 }
