@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/03 03:44:06 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/03 06:38:41 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <math.h>
 # include "mlx.h"
 # include "matrix3.h"
+
+# define PI 3.1415
 
 typedef enum s_bool
 {
