@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 04:07:40 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/03 04:53:30 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/04 13:13:28 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ t_matrix3	ft_mult_matrix3(t_matrix3 a, t_matrix3 b)
 	return (new);
 }
 
-t_point	ft_project_point(t_point pt, t_matrix3 m)
+t_vector3	ft_project_point(t_vector3 pt, t_matrix3 m)
 {
-	t_point	new;
+	t_vector3	new;
 
 	new.x = pt.x * m.matrix[0][0] + \
 			pt.y * m.matrix[0][1] + \

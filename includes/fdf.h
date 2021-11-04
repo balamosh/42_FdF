@@ -6,25 +6,20 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/03 06:38:41 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/04 14:21:30 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <stdlib.h>
 # include <math.h>
+
+# include "libft.h"
 # include "mlx.h"
 # include "matrix3.h"
 
 # define PI 3.1415
-
-typedef enum s_bool
-{
-	false,
-	true
-}			t_bool;
 
 typedef struct s_pixel
 {
@@ -61,8 +56,9 @@ typedef struct s_fdf
 	t_bool		lmb;
 }				t_fdf;
 
-t_bool	ft_malloc(void **ptr, size_t n);
+t_pixel	ft_pixel(int x, int y);
 void	ft_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	ft_plot_line(t_image *image, t_pixel p0, t_pixel p1, int color);
 t_fdf	*ft_fdf_init(void);
 
 #endif

@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix3.h                                          :+:      :+:    :+:   */
+/*   malloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 03:16:56 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 13:20:46 by sotherys         ###   ########.fr       */
+/*   Created: 2021/10/27 03:24:21 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/04 14:09:58 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATRIX3_H
-# define MATRIX3_H
+#include "libft.h"
 
-# include "vector3.h"
-
-typedef struct s_matrix3
+t_bool	ft_malloc(void **ptr, size_t n)
 {
-	double	matrix[3][3];
-}				t_matrix3;
-
-t_matrix3	ft_mult_matrix3(t_matrix3 a, t_matrix3 b);
-t_vector3	ft_project_point(t_vector3 pt, t_matrix3 m);
-
-#endif
+	*ptr = malloc(n);
+	if (*ptr)
+		return (true);
+	return (false);
+}

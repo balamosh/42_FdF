@@ -5,10 +5,14 @@ OBJS_DIR	= objs/
 HEAD_DIR	= includes/
 
 SRCS_FILES	= main.c				\
-			  ft_fdf_init.c			\
-			  ft_malloc.c			\
-			  ft_mlx_pixel_put.c	\
-			  ft_matrix3.c
+			  fdf_init.c			\
+			  libft_func1.c			\
+			  malloc.c				\
+			  matrix3.c				\
+			  mlx_pixel_put.c		\
+			  plot_line.c			\
+			  vector3_func1.c		\
+			  vector3_func2.c
 
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 
