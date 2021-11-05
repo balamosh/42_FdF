@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_matrix3.c                                       :+:      :+:    :+:   */
+/*   matrix3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 04:07:40 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 13:13:28 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/04 19:29:50 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix3.h"
 
-t_matrix3	ft_mult_matrix3(t_matrix3 a, t_matrix3 b)
+t_matrix3	ft_matrix3_mult(t_matrix3 a, t_matrix3 b)
 {
 	t_matrix3	new;
 	int			i;
@@ -39,7 +39,7 @@ t_matrix3	ft_mult_matrix3(t_matrix3 a, t_matrix3 b)
 	return (new);
 }
 
-t_vector3	ft_project_point(t_vector3 pt, t_matrix3 m)
+t_vector3	ft_matrix3_project(t_vector3 pt, t_matrix3 m)
 {
 	t_vector3	new;
 

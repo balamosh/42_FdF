@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 14:21:49 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/05 21:02:22 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_pixel	ft_point_to_pixel(t_fdf *tab, t_vector3 pt)
 	t_vector3	project_pt;
 	t_pixel	pix;
 
-	project_pt = ft_project_point(pt, ft_mult_matrix3(tab->projection, tab->rotation));
+	project_pt = ft_matrix3_project(pt, tab->full);
 	pix = ft_pixel(tab->window->width / (108 / 2) * (project_pt.x + 108 / 4), \
 					tab->window->height / (108 / 2) * (108 / 4 - project_pt.y));
 	return (pix);
@@ -43,7 +43,7 @@ int	ft_button_released(int keycode, int x, int y, t_fdf *tab)
 	(void) x;
 	(void) y;
 	tab->lmb = false;
-	tab->projection = ft_mult_matrix3(tab->projection, tab->rotation);
+	tab->projection = ft_matrix3_mult(tab->projection, tab->rotation);
 	tab->rotation.matrix[0][0] = 1;
 	tab->rotation.matrix[0][1] = 0;
 	tab->rotation.matrix[0][2] = 0;
@@ -58,27 +58,9 @@ int	ft_button_released(int keycode, int x, int y, t_fdf *tab)
 	return (0);
 }
 
-void	ft_clear_image(t_fdf *tab)
-{
-	int	px;
-	int	py;
-
-	px = 0;
-	while (px <= tab->window->width)
-	{
-		py = 0;
-		while (py <= tab->window->height)
-		{
-			ft_mlx_pixel_put(tab->image, px, py, 0xFF000000);
-			++py;
-		}
-		++px;
-	}
-}
-
 void	ft_test_line(t_fdf *tab)
 {
-	ft_clear_image(tab);
+	ft_clear_image(tab->image);
 	ft_plot_line(tab->image, tab->cursor_old, tab->cursor_new, 0xFFFFFFFF);
 	mlx_put_image_to_window(tab->mlx_ptr, \
 							tab->window->ptr, tab->image->mlx_img, 0, 0);
@@ -91,7 +73,7 @@ void	ft_test_axis(t_fdf *tab)
 	t_pixel	pixels[TEST][TEST][4];
 	int		i, j;
 
-	ft_clear_image(tab);
+	ft_clear_image(tab->image);
 
 	i = 0;
 	while (i < TEST)
@@ -121,6 +103,11 @@ void	ft_test_axis(t_fdf *tab)
 	ft_plot_line(tab->image, oo, oz, 0xFF0000FF);
 	mlx_put_image_to_window(tab->mlx_ptr, \
 							tab->window->ptr, tab->image->mlx_img, 0, 0);
+	ft_mlx_image_swap(&tab->image, &tab->image_tmp);
+	
+	mlx_string_put(tab->mlx_ptr, tab->window->ptr, ox.x, ox.y, 0xFFFFFFFF, "x");
+	mlx_string_put(tab->mlx_ptr, tab->window->ptr, oy.x, oy.y, 0xFFFFFFFF, "y");
+	mlx_string_put(tab->mlx_ptr, tab->window->ptr, oz.x, oz.y, 0xFFFFFFFF, "z");
 }
 
 int	ft_cursor_moved(int x, int y, t_fdf *tab)
@@ -140,6 +127,7 @@ int	ft_cursor_moved(int x, int y, t_fdf *tab)
 		tab->rotation.matrix[2][0] = -sin(theta);
 		tab->rotation.matrix[2][1] = 0;
 		tab->rotation.matrix[2][2] = cos(theta);
+		tab->full = ft_matrix3_mult(tab->projection, tab->rotation);
 		ft_test_axis(tab);
 	}
 	//printf("NEW CURSOR POS:%d %d\n", x, y);

@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 03:16:56 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 13:20:46 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/04 19:29:50 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_matrix3
 	double	matrix[3][3];
 }				t_matrix3;
 
-t_matrix3	ft_mult_matrix3(t_matrix3 a, t_matrix3 b);
-t_vector3	ft_project_point(t_vector3 pt, t_matrix3 m);
+t_matrix3	ft_matrix3_mult(t_matrix3 a, t_matrix3 b);
+t_vector3	ft_matrix3_project(t_vector3 pt, t_matrix3 m);
 
 #endif

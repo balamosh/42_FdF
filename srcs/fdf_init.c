@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 13:55:56 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/05 21:01:55 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static t_bool	ft_image_init(t_fdf *tab)
 										&tab->image->bits_per_pixel, \
 										&tab->image->line_length, \
 										&tab->image->endian);
+	tab->image->bytes_per_pixel = tab->image->bits_per_pixel / 8;
+	tab->image->width = tab->window->width;
+	tab->image->height = tab->window->height;
 	return (true);
 }
 
@@ -66,6 +69,7 @@ static t_bool	ft_projection_init(t_fdf *tab)
 	tab->rotation.matrix[2][0] = 0;
 	tab->rotation.matrix[2][1] = 0;
 	tab->rotation.matrix[2][2] = 1;
+	tab->full = ft_matrix3_mult(tab->projection, tab->rotation);
 	return (true);
 }
 
@@ -78,6 +82,9 @@ t_fdf	*ft_fdf_init(void)
 	if (!(ft_mlx_init(tab)
 			&& ft_window_init(tab)
 			&& ft_image_init(tab)))
+		return (NULL);
+	ft_mlx_image_swap(&tab->image, &tab->image_tmp);
+	if (!ft_image_init(tab))
 		return (NULL);
 	ft_projection_init(tab);
 	tab->lmb = false;
