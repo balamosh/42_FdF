@@ -12,7 +12,8 @@ SRCS_FILES	= main.c				\
 			  mlx_pixel_put.c		\
 			  plot_line.c			\
 			  vector3_func1.c		\
-			  vector3_func2.c
+			  vector3_func2.c		\
+			  qrot_func1.c
 
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/05 21:00:51 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/06 01:30:05 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft.h"
 # include "mlx.h"
 # include "matrix3.h"
+# include "qrot.h"
 
 # define PI 3.1415
 
@@ -56,6 +57,10 @@ typedef struct s_fdf
 	t_matrix3	full;
 	t_matrix3	projection;
 	t_matrix3	rotation;
+	t_qrot		qfull;
+	t_qrot		qproj;
+	t_qrot		up;
+	t_qrot		right;
 	t_pixel		cursor_old;
 	t_pixel		cursor_new;
 	t_bool		lmb;
