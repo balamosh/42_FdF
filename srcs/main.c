@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/06 05:14:23 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/07 06:00:42 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,15 @@ t_pixel	ft_point_to_pixel(t_fdf *tab, t_vector3 pt)
 	//project_pt = ft_qrot_rotate(pt, tab->up);
 	//project_pt = ft_matrix3_project(project_pt, tab->projection);
 
-	project_pt = ft_qrot_rotate(pt, tab->up);
-	project_pt = ft_qrot_rotate(project_pt, tab->right);
-	project_pt = ft_qrot_rotate(project_pt, tab->qproj);
+	//project_pt = ft_qrot_rotate(pt, tab->up);
+	//project_pt = ft_qrot_rotate(project_pt, tab->right);
+	//project_pt = ft_qrot_rotate(project_pt, tab->qproj);
+
+	project_pt = ft_qrot_rotate(pt, tab->qfull);
 	
 	pix = ft_pixel(tab->window->width / (108 / 2) * (project_pt.x + 108 / 4), \
 					tab->window->height / (108 / 2) * (108 / 4 - project_pt.y));
 	return (pix);
-}
-
-int	ft_button_pressed(int keycode, int x, int y, t_fdf *tab)
-{
-	(void) keycode;
-	tab->lmb = true;
-	tab->cursor_old = ft_pixel(x, y);
-	tab->cursor_new = tab->cursor_old;
-
-	//printf("BUTTON PRESSED:%d\n", keycode);
-	return (0);
-}
-
-int	ft_button_released(int keycode, int x, int y, t_fdf *tab)
-{
-	t_qrot	new_up;
-	t_qrot	new_right;
-
-	(void) keycode;
-	(void) x;
-	(void) y;
-	tab->lmb = false;
-	tab->projection = ft_matrix3_mult(tab->projection, tab->rotation);
-	tab->rotation.matrix[0][0] = 1;
-	tab->rotation.matrix[0][1] = 0;
-	tab->rotation.matrix[0][2] = 0;
-	tab->rotation.matrix[1][0] = 0;
-	tab->rotation.matrix[1][1] = 1;
-	tab->rotation.matrix[1][2] = 0;
-	tab->rotation.matrix[2][0] = 0;
-	tab->rotation.matrix[2][1] = 0;
-	tab->rotation.matrix[2][2] = 1;
-	new_up.axis = ft_qrot_rotate(tab->up.axis, tab->up);
-	new_up.axis = ft_qrot_rotate(new_up.axis, tab->right);
-	new_right.axis = ft_qrot_rotate(tab->right.axis, tab->up);
-	new_right.axis = ft_qrot_rotate(new_right.axis, tab->right);
-	new_up.angle = 0;
-	new_right.angle = 0;
-	tab->up = new_up;
-	tab->right = new_right;
-
-	//printf("BUTTON RELEASED:%d\n", keycode);
-	return (0);
 }
 
 void	ft_test_line(t_fdf *tab)
@@ -122,6 +81,8 @@ void	ft_test_axis(t_fdf *tab)
 	ft_plot_line(tab->image, oo, ox, 0xFFFF0000);
 	ft_plot_line(tab->image, oo, oy, 0xFF00FF00);
 	ft_plot_line(tab->image, oo, oz, 0xFF0000FF);
+	ft_plot_line(tab->image, oo, ft_point_to_pixel(tab, tab->up.axis), 0xFFFF00FF);
+	ft_plot_line(tab->image, oo, ft_point_to_pixel(tab, tab->right.axis), 0xFFFF00FF);
 	mlx_put_image_to_window(tab->mlx_ptr, \
 							tab->window->ptr, tab->image->mlx_img, 0, 0);
 	ft_mlx_image_swap(&tab->image, &tab->image_tmp);
@@ -131,10 +92,54 @@ void	ft_test_axis(t_fdf *tab)
 	mlx_string_put(tab->mlx_ptr, tab->window->ptr, oz.x, oz.y, 0xFFFFFFFF, "z");
 }
 
+int	ft_button_pressed(int keycode, int x, int y, t_fdf *tab)
+{
+	(void) keycode;
+	tab->lmb = true;
+	tab->cursor_old = ft_pixel(x, y);
+	tab->cursor_new = tab->cursor_old;
+
+	//printf("BUTTON PRESSED:%d\n", keycode);
+	return (0);
+}
+
+int	ft_button_released(int keycode, int x, int y, t_fdf *tab)
+{
+	t_qrot	new_up;
+	t_qrot	new_right;
+
+	(void) keycode;
+	(void) x;
+	(void) y;
+	tab->lmb = false;
+	tab->projection = ft_matrix3_mult(tab->projection, tab->rotation);
+	tab->rotation.matrix[0][0] = 1;
+	tab->rotation.matrix[0][1] = 0;
+	tab->rotation.matrix[0][2] = 0;
+	tab->rotation.matrix[1][0] = 0;
+	tab->rotation.matrix[1][1] = 1;
+	tab->rotation.matrix[1][2] = 0;
+	tab->rotation.matrix[2][0] = 0;
+	tab->rotation.matrix[2][1] = 0;
+	tab->rotation.matrix[2][2] = 1;
+	tab->qproj = ft_qrot_mult(ft_qrot_mult(tab->up, tab->right), tab->qproj);
+	new_right.axis = ft_qrot_rotate(tab->right.axis, ft_qrot(tab->up.axis, -tab->up.angle));
+	new_up.axis = ft_qrot_rotate(tab->up.axis, ft_qrot(tab->right.axis, -tab->right.angle));
+	//new_right.axis = tab->right.axis;
+	new_up.axis = tab->up.axis;
+	new_up.angle = 0;
+	new_right.angle = 0;
+	tab->up = new_up;
+	tab->right = new_right;
+
+	ft_test_axis(tab);
+
+	//printf("BUTTON RELEASED:%d\n", keycode);
+	return (0);
+}
+
 int	ft_cursor_moved(int x, int y, t_fdf *tab)
 {
-	t_vector3	old_up_axis;
-	t_qrot	old_up;
 	double	theta_up;
 	double	theta_right;
 
@@ -154,24 +159,10 @@ int	ft_cursor_moved(int x, int y, t_fdf *tab)
 		tab->rotation.matrix[2][2] = cos(theta_up);
 		tab->full = ft_matrix3_mult(tab->projection, tab->rotation);
 		
-		old_up = tab->up;
-		(void) old_up;
-		old_up_axis = tab->up.axis;
-		(void) old_up_axis;
-		/*
-		tab->up.axis = ft_qrot_rotate(tab->up.axis, tab->right);
-		tab->up.angle = theta_up;
-		
-		tab->right.axis = ft_qrot_rotate(tab->right.axis, ft_qrot(old_up_axis, -theta_up));
-		
-		//tab->right.axis = ft_qrot_rotate(tab->right.axis, old_up);
-			
-		//tab->right.axis = ft_qrot_rotate(tab->right.axis, tab->up);
-		tab->right.angle = theta_right;
-		tab->qfull = ft_qrot_mult(tab->qproj, tab->up);
-		*/
 		tab->up.angle = theta_up;
 		tab->right.angle = theta_right;
+		//tab->qfull = ft_qrot_mult(tab->up, tab->qproj);
+		tab->qfull = ft_qrot_mult(ft_qrot_mult(tab->up, tab->right), tab->qproj);
 		ft_test_axis(tab);
 	}
 	//printf("NEW CURSOR POS:%d %d\n", x, y);
@@ -204,6 +195,9 @@ void	ft_fdf(void)
 
 int	main(void)
 {
+	t_vector3	z;
+	z = ft_vector3_cross(ft_vector3(1, 0, 0), ft_vector3(0, 1, 0));
+	printf("z: %f, %f, %f\n", z.x, z.y, z.z);
 	ft_fdf();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/06 01:30:05 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/07 06:06:14 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "matrix3.h"
 # include "qrot.h"
 
-# define PI 3.1415
+# define PI 3.14159265359
 
 typedef struct s_pixel
 {
