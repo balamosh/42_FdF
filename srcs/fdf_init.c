@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/07 05:55:11 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/07 07:08:16 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ static t_bool	ft_projection_init(t_fdf *tab)
 	tab->rotation.matrix[2][1] = 0;
 	tab->rotation.matrix[2][2] = 1;
 	tab->full = tab->projection;
-	tab->up = ft_qrot(ft_vector3(0, -1, 0), asin(tan(PI / 6)));
-	tab->right = ft_qrot(ft_vector3(-1, 0, 0), PI / 4);
+	tab->up = ft_qrot(ft_vector3(0, 1, 0), -PI / 4);
+	tab->right = ft_qrot(ft_vector3(1, 0, 0), asin(tan(PI / 6)));
 	
-	//tab->qproj = ft_qrot_mult(tab->up, tab->right);
-	tab->qproj = tab->up;
+	tab->qproj = ft_qrot_mult(tab->up, tab->right);
+	//tab->qproj = tab->up;
 	printf("axis: %f, %f, %f\nangle: %f\n", 
 	tab->qproj.axis.x, 
 	tab->qproj.axis.y,

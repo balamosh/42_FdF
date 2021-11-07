@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 00:21:06 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/07 05:46:32 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/07 06:58:40 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_qrot	ft_qrot_mult(t_qrot a, t_qrot b)
 	)));
 	return (q);
 }
+
 
 /*
 t_qrot	ft_qrot_mult(t_qrot a, t_qrot b)

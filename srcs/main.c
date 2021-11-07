@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/07 06:00:42 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/07 07:07:06 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,10 @@ int	ft_cursor_moved(int x, int y, t_fdf *tab)
 	if (tab->lmb)
 	{
 		tab->cursor_new = ft_pixel(x, y);
-		theta_up = 2 * PI * (tab->cursor_old.x - tab->cursor_new.x) / tab->window->width;
-		theta_right = 2 * PI * (tab->cursor_old.y - tab->cursor_new.y) / tab->window->height;
+		theta_up = 2 * PI * (tab->cursor_new.x - tab->cursor_old.x) / tab->window->width;
+		theta_right = 2 * PI * (tab->cursor_new.y - tab->cursor_old.y) / tab->window->height;
+		printf("theta_right = %f\n", theta_right);
+		printf("theta_up = %f\n", theta_up);
 		tab->rotation.matrix[0][0] = cos(theta_up);
 		tab->rotation.matrix[0][1] = 0;
 		tab->rotation.matrix[0][2] = sin(theta_up);
