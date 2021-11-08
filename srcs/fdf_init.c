@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/07 07:08:16 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/08 01:58:58 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,50 +49,19 @@ static t_bool	ft_image_init(t_fdf *tab)
 	return (true);
 }
 
-#include <stdio.h>
-
 static t_bool	ft_projection_init(t_fdf *tab)
 {
-	tab->projection.matrix[0][0] = 1 / sqrt(2);
-	tab->projection.matrix[0][1] = 0;
-	tab->projection.matrix[0][2] = -1 / sqrt(2);
-	tab->projection.matrix[1][0] = 1 / sqrt(6);
-	tab->projection.matrix[1][1] = 2 / sqrt(6);
-	tab->projection.matrix[1][2] = 1 / sqrt(6);
-	tab->projection.matrix[2][0] = 1 / sqrt(3);
-	tab->projection.matrix[2][1] = -1 / sqrt(3);
-	tab->projection.matrix[2][2] = 1 / sqrt(3);
-	tab->rotation.matrix[0][0] = 1;
-	tab->rotation.matrix[0][1] = 0;
-	tab->rotation.matrix[0][2] = 0;
-	tab->rotation.matrix[1][0] = 0;
-	tab->rotation.matrix[1][1] = 1;
-	tab->rotation.matrix[1][2] = 0;
-	tab->rotation.matrix[2][0] = 0;
-	tab->rotation.matrix[2][1] = 0;
-	tab->rotation.matrix[2][2] = 1;
-	tab->full = tab->projection;
 	tab->up = ft_qrot(ft_vector3(0, 1, 0), -PI / 4);
 	tab->right = ft_qrot(ft_vector3(1, 0, 0), asin(tan(PI / 6)));
-	
 	tab->qproj = ft_qrot_mult(tab->up, tab->right);
-	//tab->qproj = tab->up;
-	printf("axis: %f, %f, %f\nangle: %f\n", 
-	tab->qproj.axis.x, 
-	tab->qproj.axis.y,
-	tab->qproj.axis.z,
-	tab->qproj.angle / PI * 180);
-	//tab->qproj = ft_qrot_mult(tab->right, tab->up);
-	
-	//tab->up.axis = ft_qrot_rotate(tab->up.axis, tab->right);
-	
-	//tab->right.axis = ft_qrot_rotate(tab->right.axis, ft_qrot(tab->up.axis, PI / 4));
-	tab->right.axis = ft_qrot_rotate(tab->right.axis, ft_qrot(tab->up.axis, -tab->up.angle));
-
-	//tab->qproj = ft_qrot_mult(tab->qproj, tab->up);
 	tab->qfull = tab->qproj;
+	tab->right.axis = ft_qrot_rotate(tab->right.axis, ft_qrot(tab->up.axis, -tab->up.angle));
 	tab->up.angle = 0;
 	tab->right.angle = 0;
+	tab->plane.left = -27;
+	tab->plane.right = 27;
+	tab->plane.down = -27;
+	tab->plane.up = 27;
 	return (true);
 }
 

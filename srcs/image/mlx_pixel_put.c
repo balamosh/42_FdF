@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix3.h                                          :+:      :+:    :+:   */
+/*   mlx_pixel_put.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 03:16:56 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 19:29:50 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/08 12:16:25 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/08 12:16:32 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATRIX3_H
-# define MATRIX3_H
+#include "image.h"
 
-# include "vector3.h"
-
-typedef struct s_matrix3
+void	ft_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-	double	matrix[3][3];
-}				t_matrix3;
+	char	*dst;
 
-t_matrix3	ft_matrix3_mult(t_matrix3 a, t_matrix3 b);
-t_vector3	ft_matrix3_project(t_vector3 pt, t_matrix3 m);
-
-#endif
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
+		return ;
+	dst = img->ptr + (y * img->line_length + x * img->bytes_per_pixel);
+	*(unsigned int *) dst = color;
+}
