@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/08 01:58:58 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/08 12:58:57 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static t_bool	ft_projection_init(t_fdf *tab)
 	tab->right = ft_qrot(ft_vector3(1, 0, 0), asin(tan(PI / 6)));
 	tab->qproj = ft_qrot_mult(tab->up, tab->right);
 	tab->qfull = tab->qproj;
-	tab->right.axis = ft_qrot_rotate(tab->right.axis, ft_qrot(tab->up.axis, -tab->up.angle));
+	tab->right.axis = ft_qrot_rotate(tab->right.axis, \
+										ft_qrot(tab->up.axis, -tab->up.angle));
 	tab->up.angle = 0;
 	tab->right.angle = 0;
 	tab->plane.left = -27;

@@ -6,13 +6,13 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 13:58:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/06 00:53:20 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/08 12:58:23 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector3.h"
 
-double		ft_vector3_dot(t_vector3 a, t_vector3 b)
+double	ft_vector3_dot(t_vector3 a, t_vector3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }

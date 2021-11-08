@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:04:37 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/04 14:06:13 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/08 12:54:48 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ static void	ft_plot_line_low(t_image *image, t_pixel p0, t_pixel p1, int color)
 	int		diff;
 	int		yi;
 
-	d.x = p1.x - p0.x;
-	d.y = p1.y - p0.y;
+	d = ft_pixel(p1.x - p0.x, p1.y - p0.y);
 	yi = 1;
 	if (d.y < 0)
 	{
@@ -36,10 +35,9 @@ static void	ft_plot_line_low(t_image *image, t_pixel p0, t_pixel p1, int color)
 		if (diff > 0)
 		{
 			p.y += yi;
-			diff += 2 * (d.y - d.x);
+			diff -= 2 * d.x;
 		}
-		else
-			diff += 2 * d.y;
+		diff += 2 * d.y;
 		++p.x;
 	}
 }
@@ -51,8 +49,7 @@ static void	ft_plot_line_high(t_image *image, t_pixel p0, t_pixel p1, int color)
 	int		diff;
 	int		xi;
 
-	d.x = p1.x - p0.x;
-	d.y = p1.y - p0.y;
+	d = ft_pixel(p1.x - p0.x, p1.y - p0.y);
 	xi = 1;
 	if (d.x < 0)
 	{
@@ -67,10 +64,9 @@ static void	ft_plot_line_high(t_image *image, t_pixel p0, t_pixel p1, int color)
 		if (diff > 0)
 		{
 			p.x += xi;
-			diff += 2 * (d.x - d.y);
+			diff -= 2 * d.y;
 		}
-		else
-			diff += 2 * d.x;
+		diff += 2 * d.x;
 		++p.y;
 	}
 }
