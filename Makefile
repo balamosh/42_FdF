@@ -22,6 +22,7 @@ SRCS_FILES	= main.c					\
 			  image/pixel.c				\
 			  image/plot_line.c			\
 			  libft/abs.c				\
+			  libft/fabs.c				\
 			  libft/malloc.c			\
 			  libft/swap.c				\
 			  qrot/qrot_mult.c			\
@@ -72,7 +73,6 @@ $(MLX):
 
 clean: 
 	rm -rf $(BUILD_DIR)
-	-rm $(DEPS)
 	make -C $(MLX_DIR) clean
 
 fclean: clean

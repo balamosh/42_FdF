@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/08 11:33:58 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/09 05:47:07 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ void	ft_test_axis(t_fdf *tab)
 
 	ft_clear_image(tab->image);
 
+	oo = ft_point_to_pixel(tab, ft_vector3(0, 0, 0));
+	ox = ft_point_to_pixel(tab, ft_vector3(10, 0, 0));
+	oy = ft_point_to_pixel(tab, ft_vector3(0, 10, 0));
+	oz = ft_point_to_pixel(tab, ft_vector3(0, 0, 10));
+	ft_plot_line(tab->image, oo, ox, 0xFFFF0000);
+	ft_plot_line(tab->image, oo, oy, 0xFF00FF00);
+	ft_plot_line(tab->image, oo, oz, 0xFF0000FF);
+	ft_plot_line(tab->image, oo, ft_point_to_pixel(tab, tab->up.axis), 0xFFFF00FF);
+	ft_plot_line(tab->image, oo, ft_point_to_pixel(tab, tab->right.axis), 0xFFFF00FF);
+	
 	i = 0;
 	while (i < TEST)
 	{
@@ -57,15 +67,6 @@ void	ft_test_axis(t_fdf *tab)
 		++i;
 	}
 
-	oo = ft_point_to_pixel(tab, ft_vector3(0, 0, 0));
-	ox = ft_point_to_pixel(tab, ft_vector3(10, 0, 0));
-	oy = ft_point_to_pixel(tab, ft_vector3(0, 10, 0));
-	oz = ft_point_to_pixel(tab, ft_vector3(0, 0, 10));
-	ft_plot_line(tab->image, oo, ox, 0xFFFF0000);
-	ft_plot_line(tab->image, oo, oy, 0xFF00FF00);
-	ft_plot_line(tab->image, oo, oz, 0xFF0000FF);
-	ft_plot_line(tab->image, oo, ft_point_to_pixel(tab, tab->up.axis), 0xFFFF00FF);
-	ft_plot_line(tab->image, oo, ft_point_to_pixel(tab, tab->right.axis), 0xFFFF00FF);
 	mlx_put_image_to_window(tab->mlx_ptr, \
 							tab->window->ptr, tab->image->mlx_img, 0, 0);
 	ft_mlx_image_swap(&tab->image, &tab->image_tmp);
