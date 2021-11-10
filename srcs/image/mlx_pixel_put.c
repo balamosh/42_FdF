@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:16:25 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/08 12:16:32 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/10 08:00:18 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	ft_mlx_pixel_put(t_image *img, int x, int y, int color)
 
 	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
 		return ;
-	dst = img->ptr + (y * img->line_length + x * img->bytes_per_pixel);
+	dst = img->data + (y * img->line_length + x * img->bytes_per_pixel);
 	*(unsigned int *) dst = color;
 }

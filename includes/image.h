@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:11:02 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/08 12:12:21 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/10 07:30:29 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ typedef struct s_pixel
 
 typedef struct s_image
 {
-	void	*mlx_img;
-	char	*ptr;
+	void	*mlx;
+	void	*img_ptr;
+	char	*data;
 	int		width;
 	int		height;
 	int		bits_per_pixel;

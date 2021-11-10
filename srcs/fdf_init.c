@@ -6,80 +6,86 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/08 12:58:57 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/10 19:03:53 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_bool	ft_mlx_init(t_fdf *tab)
+static t_bool	ft_mlx_init(void **mlx)
 {
-	tab->mlx_ptr = mlx_init();
-	if (!tab->mlx_ptr)
+	*mlx = mlx_init();
+	if (!*mlx)
 		return (false);
 	return (true);
 }
 
-static t_bool	ft_window_init(t_fdf *tab)
+static t_bool	ft_window(void *mlx, \
+							t_window *window, \
+							t_res res, \
+							const char *name)
 {
-	if (!ft_malloc((void *) &tab->window, sizeof(t_window)))
+	window->mlx = mlx;
+	window->width = res.width;
+	window->height = res.height;
+	window->ptr = mlx_new_window(mlx, res.width, res.height, (char *) name);
+	if (!window->ptr)
 		return (false);
-	tab->window->width = 1080;
-	tab->window->height = 1080;
-	tab->window->ptr = mlx_new_window(tab->mlx_ptr, \
-										tab->window->width, \
-										tab->window->height, "fdf");
 	return (true);
 }
 
-static t_bool	ft_image_init(t_fdf *tab)
+static t_bool	ft_image(void *mlx, \
+							t_image *image, \
+							int width, \
+							int height)
 {
-	if (!ft_malloc((void *) &tab->image, sizeof(t_image)))
+	image->mlx = mlx;
+	image->img_ptr = mlx_new_image(mlx, width, height);
+	if (!image->img_ptr)
 		return (false);
-	tab->image->mlx_img = mlx_new_image(tab->mlx_ptr, \
-										tab->window->width, \
-										tab->window->height);
-	tab->image->ptr = mlx_get_data_addr(tab->image->mlx_img, \
-										&tab->image->bits_per_pixel, \
-										&tab->image->line_length, \
-										&tab->image->endian);
-	tab->image->bytes_per_pixel = tab->image->bits_per_pixel / 8;
-	tab->image->width = tab->window->width;
-	tab->image->height = tab->window->height;
+	image->data = mlx_get_data_addr(image->img_ptr, \
+									&image->bits_per_pixel, \
+									&image->line_length, \
+									&image->endian);
+	if (!image->data)
+		return (false);
+	image->bytes_per_pixel = image->bits_per_pixel / 8;
+	image->width = width;
+	image->height = height;
 	return (true);
 }
 
-static t_bool	ft_projection_init(t_fdf *tab)
+static void	ft_camera_isometric(t_camera *camera, t_res res)
 {
-	tab->up = ft_qrot(ft_vector3(0, 1, 0), -PI / 4);
-	tab->right = ft_qrot(ft_vector3(1, 0, 0), asin(tan(PI / 6)));
-	tab->qproj = ft_qrot_mult(tab->up, tab->right);
-	tab->qfull = tab->qproj;
-	tab->right.axis = ft_qrot_rotate(tab->right.axis, \
-										ft_qrot(tab->up.axis, -tab->up.angle));
-	tab->up.angle = 0;
-	tab->right.angle = 0;
-	tab->plane.left = -27;
-	tab->plane.right = 27;
-	tab->plane.down = -27;
-	tab->plane.up = 27;
-	return (true);
+	camera->res = res;
+	camera->yaw = (t_qrot){(t_vector3){0, 1, 0}, -PI / 4};
+	camera->pitch = (t_qrot){(t_vector3){1, 0, 0}, asin(tan(PI / 6))};
+	camera->projection = ft_qrot_mult(camera->yaw, camera->pitch);
+	camera->orient = camera->projection;
+	camera->pitch.axis = \
+	ft_qrot_rotate(camera->pitch.axis, \
+					ft_qrot(camera->yaw.axis, -camera->yaw.angle));
+	camera->yaw.angle = 0;
+	camera->pitch.angle = 0;
+	camera->plane.left = -27;
+	camera->plane.right = 27;
+	camera->plane.down = -27;
+	camera->plane.up = 27;
 }
 
-t_fdf	*ft_fdf_init(void)
+t_bool	ft_fdf_init(t_fdf *tab)
 {
-	t_fdf	*tab;
-
-	if (!ft_malloc((void *) &tab, sizeof(t_fdf)))
-		return (NULL);
-	if (!(ft_mlx_init(tab)
-			&& ft_window_init(tab)
-			&& ft_image_init(tab)))
-		return (NULL);
-	ft_mlx_image_swap(&tab->image, &tab->image_tmp);
-	if (!ft_image_init(tab))
-		return (NULL);
-	ft_projection_init(tab);
+	if (!(ft_mlx_init(&tab->mlx)
+			&& ft_window(tab->mlx, &tab->window, \
+						(t_res){FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT}, "fdf")
+			&& ft_image(tab->mlx, &tab->image[0], \
+						FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT)
+			&& ft_image(tab->mlx, &tab->image[1], \
+						FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT)))
+		return (false);
+	ft_camera_isometric(&tab->camera, (t_res){FDF_WINDOW_WIDTH, \
+											FDF_WINDOW_HEIGHT});
+	tab->img_id = 0;
 	tab->lmb = false;
-	return (tab);
+	return (true);
 }

@@ -42,17 +42,17 @@ OS			= $(shell uname)
 ifeq ($(OS), Linux)
 	MLX			= mlx_linux/libmlx.a
 	MLX_DIR		= $(dir $(MLX))
-	MLX_FLAGS	= -L $(MLX_DIR) -l mlx -lXext -lX11 -lz
+	MLX_FLAGS	= -L $(MLX_DIR) -l mlx -lm -lXext -lX11 -lz
 else
 	MLX			= mlx/libmlx.a
 	MLX_DIR		= $(dir $(MLX))
-	MLX_FLAGS	= -L $(MLX_DIR)) -l mlx -framework OpenGL -framework AppKit
+	MLX_FLAGS	= -L $(MLX_DIR) -l mlx -lm -framework OpenGL -framework AppKit
 endif
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX)
-	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
+	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME)
 
 -include $(DEPS)
 
