@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fabs.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 12:04:36 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 16:49:52 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/11 09:21:25 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/11 09:24:43 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_fabs(double x)
+#include "libft.h"
+
+void	ft_putchar_fd(char c, int fd)
 {
-	if (x > 0)
-		return (x);
-	return (-x);
+	(void)!write(fd, &c, 1);
 }

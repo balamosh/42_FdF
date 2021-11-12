@@ -6,11 +6,9 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:04:45 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/08 12:05:02 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:50:27 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 void	ft_swap(int *x, int *y)
 {

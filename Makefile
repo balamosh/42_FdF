@@ -6,6 +6,7 @@ HEAD_DIR	= includes/
 BUILD_DIR		= build/
 BUILD_SUBDIRS	= events/	\
 				  image/	\
+				  gnl/		\
 				  libft/	\
 				  qrot/		\
 				  vector3/
@@ -16,14 +17,25 @@ SRCS_FILES	= main.c					\
 			  vector3/vector3_func1.c	\
 			  vector3/vector3_func2.c	\
 			  events/button_pressed.c	\
+			  gnl/get_next_line.c		\
 			  image/clear_image.c		\
 			  image/mlx_image_swap.c	\
 			  image/mlx_pixel_put.c		\
 			  image/pixel.c				\
 			  image/plot_line.c			\
 			  libft/abs.c				\
+			  libft/atoi.c				\
 			  libft/fabs.c				\
+			  libft/isdigit.c			\
 			  libft/malloc.c			\
+			  libft/memcpy.c			\
+			  libft/min.c				\
+			  libft/putchar_fd.c		\
+			  libft/putstr_fd.c			\
+			  libft/split.c				\
+			  libft/strdup.c			\
+			  libft/strlen.c			\
+			  libft/substr.c			\
 			  libft/swap.c				\
 			  qrot/qrot_mult.c			\
 			  qrot/qrot_rotate.c		\

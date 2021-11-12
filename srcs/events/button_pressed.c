@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 09:52:29 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/10 08:36:48 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/11 09:35:15 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,18 @@
 
 static void	ft_lmb_pressed(int x, int y, t_fdf *tab)
 {
+	if (tab->mmb)
+		return ;
 	tab->lmb = true;
-	tab->cursor_old = ft_pixel(x, y);
-	tab->cursor_new = tab->cursor_old;
+	tab->cursor = (t_pixel){x, y};
+}
+
+static void	ft_mmb_pressed(int x, int y, t_fdf *tab)
+{
+	if (tab->lmb)
+		return ;
+	tab->mmb = true;
+	tab->cursor = (t_pixel){x, y};
 }
 
 static int	ft_zoom_in(int x, int y, t_camera *cam)
@@ -56,6 +65,8 @@ int	ft_button_pressed(int keycode, int x, int y, t_fdf *tab)
 {
 	if (keycode == LMB)
 		ft_lmb_pressed(x, y, tab);
+	else if (keycode == MMB)
+		ft_mmb_pressed(x, y, tab);
 	else if (keycode == SCRL_UP)
 		ft_zoom_in(x, y, &tab->camera);
 	else if (keycode == SCRL_DOWN)

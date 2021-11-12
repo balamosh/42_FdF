@@ -6,19 +6,21 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/10 08:20:24 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:56:31 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include <fcntl.h>
 # include <math.h>
 
+# include "mlx.h"
 # include "libft.h"
 # include "image.h"
-# include "mlx.h"
 # include "qrot.h"
+# include "geometry.h"
 
 # define FDF_WINDOW_WIDTH 1080
 # define FDF_WINDOW_HEIGHT 1080
@@ -49,24 +51,26 @@ typedef struct s_plane
 
 typedef struct s_camera
 {
-	t_qrot	orient;
-	t_qrot	projection;
-	t_qrot	yaw;
-	t_qrot	pitch;
-	t_plane	plane;
-	t_res	res;
+	t_qrot		orient;
+	t_qrot		projection;
+	t_qrot		yaw;
+	t_qrot		pitch;
+	t_plane		plane;
+	t_res		res;
 }				t_camera;
 
 typedef struct s_fdf
 {
+	char		*filename;
 	void		*mlx;
 	t_window	window;
 	t_image		image[2];
 	int			img_id;
 	t_camera	camera;
-	t_pixel		cursor_old;
-	t_pixel		cursor_new;
+	t_geometry	geo;
+	t_pixel		cursor;
 	t_bool		lmb;
+	t_bool		mmb;
 }				t_fdf;
 
 t_bool	ft_fdf_init(t_fdf *tab);

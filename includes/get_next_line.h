@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fabs.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 12:04:36 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 16:49:52 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/12 15:05:24 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/12 15:12:56 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_fabs(double x)
-{
-	if (x > 0)
-		return (x);
-	return (-x);
-}
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+# include "libft.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 128
+# endif
+
+# define FD_SIZE 12000
+
+char	*get_next_line(int fd);
+
+#endif

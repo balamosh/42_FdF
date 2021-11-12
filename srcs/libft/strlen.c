@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fabs.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 12:04:36 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 16:49:52 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/12 15:10:28 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/12 15:10:36 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	ft_fabs(double x)
+#include "libft.h"
+
+size_t	ft_strlen(const char *s)
 {
-	if (x > 0)
-		return (x);
-	return (-x);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		++i;
+	return (i);
 }
