@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 16:56:31 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/12 23:30:57 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ typedef struct s_plane
 	double	right;
 	double	up;
 	double	down;
+	double	width;
+	double	height;
+	double	pixel_width;
+	double	pixel_height;
 }				t_plane;
 
 typedef struct s_camera

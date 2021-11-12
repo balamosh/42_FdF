@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 17:08:52 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/12 23:49:42 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ static void	ft_camera_isometric(t_camera *camera, t_res res)
 	camera->plane.right = 27;
 	camera->plane.down = -27;
 	camera->plane.up = 27;
+	camera->plane.width = camera->plane.right - camera->plane.left;
+	camera->plane.height = camera->plane.up - camera->plane.down;
+	camera->plane.pixel_width = camera->res.width / camera->plane.width;
+	camera->plane.pixel_height = camera->res.height / camera->plane.height;
 }
 
 t_bool	ft_geometry(t_geometry *geo, size_t npts, size_t nedges)
@@ -144,6 +148,7 @@ static t_bool	ft_fdf_geo_fill(t_geometry *geo, char *filename)
 		nbrs = ft_split(get_next_line(fd), ' ');
 	}
 	close(fd);
+	return (true);
 	return (geo->npts == ipt && geo->nedges == iedge);
 }
 
