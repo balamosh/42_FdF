@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 23:45:54 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/13 00:42:50 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_pixel	ft_point_to_pixel(t_camera *cam, t_vector3 pt)
 	t_pixel	pix;
 
 	project_pt = ft_qrot_rotate(pt, cam->orient);	
-	pix = ft_pixel(cam->plane.pixel_width * (project_pt.x - cam->plane.left), \
-					cam->plane.pixel_height * (cam->plane.up - project_pt.y));
+	pix = (t_pixel){cam->plane.pixel_width * (project_pt.x - cam->plane.left), \
+					cam->plane.pixel_height * (cam->plane.up - project_pt.y)};
 	return (pix);
 }
 
@@ -35,10 +35,10 @@ void	ft_test_axis(t_fdf *tab)
 
 	ft_clear_image(&tab->image[tab->img_id]);
 
-	oo = ft_point_to_pixel(&tab->camera, ft_vector3(0, 0, 0));
-	ox = ft_point_to_pixel(&tab->camera, ft_vector3(10, 0, 0));
-	oy = ft_point_to_pixel(&tab->camera, ft_vector3(0, 10, 0));
-	oz = ft_point_to_pixel(&tab->camera, ft_vector3(0, 0, 10));
+	oo = ft_point_to_pixel(&tab->camera, (t_vector3){0, 0, 0});
+	ox = ft_point_to_pixel(&tab->camera, (t_vector3){10, 0, 0});
+	oy = ft_point_to_pixel(&tab->camera, (t_vector3){0, 10, 0});
+	oz = ft_point_to_pixel(&tab->camera, (t_vector3){0, 0, 10});
 	ft_plot_line(&tab->image[tab->img_id], oo, ox, 0xFFFF0000);
 	ft_plot_line(&tab->image[tab->img_id], oo, oy, 0xFF00FF00);
 	ft_plot_line(&tab->image[tab->img_id], oo, oz, 0xFF0000FF);
