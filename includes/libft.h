@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:06:54 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 16:51:37 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/15 01:21:45 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,4 @@ size_t	ft_split_word_count(const char *str, char c);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 
-# endif
+#endif

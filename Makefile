@@ -4,21 +4,25 @@ SRCS_DIR	= srcs/
 HEAD_DIR	= includes/
 
 BUILD_DIR		= build/
-BUILD_SUBDIRS	= events/	\
-				  image/	\
+BUILD_SUBDIRS	= camera/	\
+				  events/	\
+				  geometry/	\
 				  gnl/		\
+				  image/	\
 				  libft/	\
 				  qrot/		\
-				  vector3/
+				  vector3/	\
+				  window/
 BUILD_SUBDIRS	:= $(addprefix $(BUILD_DIR), $(BUILD_SUBDIRS))
 
 SRCS_FILES	= main.c					\
 			  fdf_init.c				\
-			  vector3/vector3_func1.c	\
-			  vector3/vector3_func2.c	\
+			  camera/isometric.c		\
 			  events/button_pressed.c	\
+			  geometry/geometry.c		\
 			  gnl/get_next_line.c		\
 			  image/clear_image.c		\
+			  image/image.c				\
 			  image/mlx_image_swap.c	\
 			  image/mlx_pixel_put.c		\
 			  image/pixel.c				\
@@ -39,7 +43,10 @@ SRCS_FILES	= main.c					\
 			  libft/swap.c				\
 			  qrot/qrot_mult.c			\
 			  qrot/qrot_rotate.c		\
-			  qrot/qrot.c				
+			  qrot/qrot.c				\
+			  vector3/vector3_func1.c	\
+			  vector3/vector3_func2.c	\
+			  window/window.c
 
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
 
