@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 01:00:37 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 01:33:13 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/15 05:11:08 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,9 @@ typedef struct s_camera
 }				t_camera;
 
 void	ft_camera_isometric(t_camera *camera, t_res res);
+void	ft_camera_update_projection(t_camera *camera);
+void	ft_camera_update_plane(t_camera *camera);
+void	ft_camera_rotate(t_camera *camera, double a_yaw, double a_pitch);
+void	ft_camera_move(t_camera *camera, double up, double right);
 
 #endif

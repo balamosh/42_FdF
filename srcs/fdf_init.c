@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 01:27:50 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/15 08:26:12 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,87 +21,110 @@ static t_bool	ft_mlx_init(void **mlx)
 	return (true);
 }
 
-static t_bool	ft_fdf_geo_alloc(t_geometry *geo, char *filename)
+static t_bool	ft_fdf_geo_alloc(t_geometry *geo, int fd)
 {
-	int		fd;
 	char	*line;
 	size_t	curr;
 	size_t	prev;
 
-	fd = open(filename, O_RDONLY);
-	if (read(fd, NULL, 0) == -1)
-		return (false);
-	geo->npts = 0;
-	geo->nedges = 0;
+	geo->spts = 0;
+	geo->sedges = 0;
 	prev = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
 		curr = ft_split_word_count(line, ' ');
-		geo->npts += curr;
+		geo->spts += curr;
 		if (curr)
-			geo->nedges += curr - 1 + ft_min(curr, prev);
+			geo->sedges += curr - 1 + ft_min(curr, prev);
 		prev = curr;
 		line = get_next_line(fd);
 	}
-	close(fd);
-	return (ft_geometry(geo, geo->npts, geo->nedges));
+	return (ft_geometry(geo, geo->spts, geo->sedges));
 }
 
-static t_bool	ft_fdf_geo_fill(t_geometry *geo, char *filename)
+static t_bool	ft_fdf_geo_fill(t_geometry *geo, int fd)
 {
-	int		fd;
-	char	**nbrs;
-	size_t	ipt;
-	size_t	iedge;
-	int		x_prev;
-	int		x;
-	int		z;
+	char		**nbrs;
+	t_vector3	pt;
+	int			prev;
 
-	fd = open(filename, O_RDONLY);
-	if (read(fd, NULL, 0) == -1)
-		return (false);
-	ipt = 0;
-	iedge = 0;
-	x_prev = 0;
-	z = 0;
+	prev = 0;
+	pt.z = 0;
 	nbrs = ft_split(get_next_line(fd), ' ');
 	while (nbrs)
 	{
-		x = 0;
-		while (nbrs[x])
+		pt.x = 0;
+		while (nbrs[(int) pt.x])
 		{
-			geo->pts[ipt] = (t_point){(t_vector3){x, ft_atoi(nbrs[x]), z}, 0};
-			if (x > 0)
-				geo->edges[iedge++] = (t_edge){{ipt, ipt - 1}};
-			if (z > 0 && x < x_prev)
-				geo->edges[iedge++] = (t_edge){{ipt, ipt - x_prev}};
-			++x;
-			++ipt;
+			pt.y = ft_atoi(nbrs[(int) pt.x]);
+			ft_geometry_add_point(geo, (t_point){pt, 0});
+			if (pt.x > 0)
+				ft_geometry_add_edge(geo, geo->npts - 1, geo->npts - 2);
+			if (pt.z > 0 && pt.x < prev)
+				ft_geometry_add_edge(geo, geo->npts - 1, geo->npts - prev - 1);
+			++pt.x;
 		}
-		x_prev = x;
-		++z;
+		prev = pt.x;
+		++pt.z;
 		nbrs = ft_split(get_next_line(fd), ' ');
 	}
-	close(fd);
-	return (geo->npts == ipt && geo->nedges == iedge);
+	return (geo->npts == geo->spts && geo->nedges == geo->sedges);
 }
 
-t_bool	ft_fdf_geo_init(t_geometry *geo, char *filename)
+void	ft_fdf_geo_color(t_geometry *geo, double min, double max)
 {
-	return (ft_fdf_geo_alloc(geo, filename) && ft_fdf_geo_fill(geo, filename));
+	size_t	i;
+	int		cd;
+
+	i = 0;
+	while (i < geo->npts)
+	{
+		cd = 0x00FF0000 * (geo->pts[i].p.y - min) / (max - min) + 0x000000FF;
+		geo->pts[i].cd = cd;
+		++i;
+	}
+}
+
+t_bool	ft_fdf_geo_init(t_geometry *geo, t_geometry *bbox, char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (read(fd, NULL, 0) == -1 || !ft_fdf_geo_alloc(geo, fd))
+		return (false);
+	close (fd);
+	fd = open(filename, O_RDONLY);
+	if (read(fd, NULL, 0) == -1 || !ft_fdf_geo_fill(geo, fd))
+		return (false);
+	close (fd);
+	if (!ft_geometry_bbox(bbox, geo))
+		return (false);
+	ft_fdf_geo_color(geo, bbox->pts[0].p.y, bbox->pts[7].p.y);
+	return (true);
+}
+
+t_bool	ft_fdf_images_init(t_image *image, void *mlx, int width, int height)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < FDF_TMP_IMG)
+	{
+		if (!ft_image(&image[i++], mlx, width, height))
+			return (false);
+	}
+	return (true);
 }
 
 t_bool	ft_fdf_init(t_fdf *tab)
 {
-	if (!(ft_fdf_geo_init(&tab->geo, tab->filename)
-			&& ft_mlx_init(&tab->mlx)
-			&& ft_window(&tab->window, tab->mlx, \
-						(t_res){FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT}, "fdf")
-			&& ft_image(&tab->image[0], tab->mlx, \
-						FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT)
-			&& ft_image(&tab->image[1], tab->mlx, \
-						FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT)))
+	if (!(ft_fdf_geo_init(&tab->geo, &tab->bbox, tab->filename) \
+		&& ft_mlx_init(&tab->mlx) \
+		&& ft_window(&tab->window, tab->mlx, \
+						(t_res){FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT}, "fdf") \
+		&& ft_fdf_images_init(tab->image, tab->mlx, \
+								FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT)))
 		return (false);
 	ft_camera_isometric(&tab->camera, (t_res){FDF_WINDOW_WIDTH, \
 											FDF_WINDOW_HEIGHT});

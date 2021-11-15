@@ -17,21 +17,30 @@ BUILD_SUBDIRS	:= $(addprefix $(BUILD_DIR), $(BUILD_SUBDIRS))
 
 SRCS_FILES	= main.c					\
 			  fdf_init.c				\
+			  camera/controls.c			\
 			  camera/isometric.c		\
+			  camera/update.c			\
 			  events/button_pressed.c	\
+			  events/button_released.c	\
+			  events/close.c			\
+			  events/cursor_moved.c		\
+			  geometry/add.c			\
+			  geometry/bbox.c			\
 			  geometry/geometry.c		\
 			  gnl/get_next_line.c		\
 			  image/clear_image.c		\
 			  image/image.c				\
-			  image/mlx_image_swap.c	\
 			  image/mlx_pixel_put.c		\
 			  image/pixel.c				\
 			  image/plot_line.c			\
 			  libft/abs.c				\
 			  libft/atoi.c				\
 			  libft/fabs.c				\
+			  libft/fmax.c				\
+			  libft/fmin.c				\
 			  libft/isdigit.c			\
 			  libft/malloc.c			\
+			  libft/max.c				\
 			  libft/memcpy.c			\
 			  libft/min.c				\
 			  libft/putchar_fd.c		\

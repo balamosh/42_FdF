@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_image_swap.c                                   :+:      :+:    :+:   */
+/*   fmax.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 12:16:06 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/10 08:18:23 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/08 12:04:36 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/15 06:36:28 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
-
-void	ft_mlx_image_swap(t_image **img1, t_image **img2)
+double	ft_fmax(double a, double b)
 {
-	t_image	*tmp;
-
-	tmp = *img1;
-	*img1 = *img2;
-	*img2 = tmp;
+	if (a > b)
+		return (a);
+	return (b);
 }

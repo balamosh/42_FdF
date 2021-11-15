@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 09:52:29 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 23:53:22 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/15 05:23:09 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,13 @@ static void	ft_mmb_pressed(int x, int y, t_fdf *tab)
 
 static int	ft_zoom(int x, int y, t_camera *camera, double scale)
 {
-	camera->plane.width = camera->plane.right - camera->plane.left;
-	camera->plane.height = camera->plane.up - camera->plane.down;
-	camera->plane.pixel_width = camera->res.width / camera->plane.width;
-	camera->plane.pixel_height = camera->res.height / camera->plane.height;
-
 	camera->plane.left += scale * x / camera->plane.pixel_width;
-	camera->plane.right -= scale * (camera->res.width - x) / camera->plane.pixel_width;
+	camera->plane.right -= scale * (camera->res.width - x) \
+							/ camera->plane.pixel_width;
 	camera->plane.up -= scale * y / camera->plane.pixel_height;
-	camera->plane.down += scale * (camera->res.height - y) / camera->plane.pixel_height;
-	
-	camera->plane.width = camera->plane.right - camera->plane.left;
-	camera->plane.height = camera->plane.up - camera->plane.down;
-	camera->plane.pixel_width = camera->res.width / camera->plane.width;
-	camera->plane.pixel_height = camera->res.height / camera->plane.height;
+	camera->plane.down += scale * (camera->res.height - y) \
+							/ camera->plane.pixel_height;
+	ft_camera_update_plane(camera);
 	return (0);
 }
 

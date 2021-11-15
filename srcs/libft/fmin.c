@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   geometry.c                                         :+:      :+:    :+:   */
+/*   fmin.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 01:26:03 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 03:56:58 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/08 12:04:36 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/15 06:36:25 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry.h"
-
-t_bool	ft_geometry(t_geometry *geo, size_t spts, size_t sedges)
+double	ft_fmin(double a, double b)
 {
-	geo->spts = spts;
-	geo->sedges = sedges;
-	geo->npts = 0;
-	geo->nedges = 0;
-	return (ft_malloc((void *) &geo->pts, spts * sizeof(t_point)) \
-			&& ft_malloc((void *) &geo->edges, sedges * sizeof(t_edge)));
+	if (a < b)
+		return (a);
+	return (b);
 }

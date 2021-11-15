@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:06:54 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 01:21:45 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/15 06:35:32 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ t_bool	ft_malloc(void **ptr, size_t n);
 int		ft_abs(int x);
 double	ft_fabs(double x);
 int		ft_min(int a, int b);
+int		ft_max(int a, int b);
+double	ft_fmin(double a, double b);
+double	ft_fmax(double a, double b);
 void	ft_swap(int *x, int *y);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
