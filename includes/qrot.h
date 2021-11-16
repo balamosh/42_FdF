@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 21:16:44 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 01:28:46 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:32:52 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "libft.h"
 # include "vector3.h"
-
-# define PI 3.14159265359
-# define QROT_EPS 0.001
 
 typedef struct s_qrot
 {

@@ -6,25 +6,33 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 05:58:05 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 06:36:46 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 09:00:13 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "geometry.h"
 
-static t_bool	ft_bbox_from_corners(t_geometry *bbox, \
-										t_vector3 pt1, t_vector3 pt2)
+static void	ft_bbox_add_points(t_geometry *bbox, \
+								t_vector3 pt1, t_vector3 pt2)
 {
-	if (!ft_geometry(bbox, 8, 12))
-		return (false);
-	ft_geometry_add_point(bbox, (t_point){pt1, 0});
-	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt2.x, pt1.y, pt1.z}, 0});
-	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt1.x, pt2.y, pt1.z}, 0});
-	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt1.x, pt1.y, pt2.z}, 0});
-	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt1.x, pt2.y, pt2.z}, 0});
-	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt2.x, pt1.y, pt2.z}, 0});
-	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt2.x, pt2.y, pt1.z}, 0});
-	ft_geometry_add_point(bbox, (t_point){pt2, 0});
+	ft_geometry_add_point(bbox, (t_point){pt1, 0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt2.x, pt1.y, pt1.z}, \
+	0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt1.x, pt2.y, pt1.z}, \
+	0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt1.x, pt1.y, pt2.z}, \
+	0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt1.x, pt2.y, pt2.z}, \
+	0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt2.x, pt1.y, pt2.z}, \
+	0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){(t_vector3){pt2.x, pt2.y, pt1.z}, \
+	0xFFFFFFFF});
+	ft_geometry_add_point(bbox, (t_point){pt2, 0xFFFFFFFF});
+}
+
+static void	ft_bbox_add_edges(t_geometry *bbox)
+{
 	ft_geometry_add_edge(bbox, 0, 1);
 	ft_geometry_add_edge(bbox, 0, 3);
 	ft_geometry_add_edge(bbox, 5, 1);
@@ -37,6 +45,15 @@ static t_bool	ft_bbox_from_corners(t_geometry *bbox, \
 	ft_geometry_add_edge(bbox, 1, 6);
 	ft_geometry_add_edge(bbox, 7, 5);
 	ft_geometry_add_edge(bbox, 3, 4);
+}
+
+static t_bool	ft_bbox_from_corners(t_geometry *bbox, \
+										t_vector3 pt1, t_vector3 pt2)
+{
+	if (!ft_geometry(bbox, 8, 12))
+		return (false);
+	ft_bbox_add_points(bbox, pt1, pt2);
+	ft_bbox_add_edges(bbox);
 	return (true);
 }
 

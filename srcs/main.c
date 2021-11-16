@@ -6,21 +6,22 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 06:49:28 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/15 09:40:42 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keycodes.h"
 
-t_pixel	ft_point_to_pixel(t_camera *cam, t_vector3 pt)
+t_pixel	ft_point_to_pixel(t_camera *cam, t_point pt)
 {
 	t_vector3	project_pt;
 	t_pixel	pix;
 
-	project_pt = ft_qrot_rotate(pt, cam->orient);	
+	project_pt = ft_qrot_rotate(pt.p, cam->orient);	
 	pix = (t_pixel){cam->plane.pixel_width * (project_pt.x - cam->plane.left), \
-					cam->plane.pixel_height * (cam->plane.up - project_pt.y)};
+					cam->plane.pixel_height * (cam->plane.up - project_pt.y), \
+					pt.cd};
 	return (pix);
 }
 
@@ -32,42 +33,46 @@ void	ft_test_axis(t_fdf *tab)
 
 	ft_clear_image(&tab->image[tab->img_id]);
 
-	oo = ft_point_to_pixel(&tab->camera, (t_vector3){0, 0, 0});
-	ox = ft_point_to_pixel(&tab->camera, (t_vector3){10, 0, 0});
-	oy = ft_point_to_pixel(&tab->camera, (t_vector3){0, 10, 0});
-	oz = ft_point_to_pixel(&tab->camera, (t_vector3){0, 0, 10});
-	ft_plot_line(&tab->image[tab->img_id], oo, ox, 0xFFFF0000);
-	ft_plot_line(&tab->image[tab->img_id], oo, oy, 0xFF00FF00);
-	ft_plot_line(&tab->image[tab->img_id], oo, oz, 0xFF0000FF);
-	ft_plot_line(&tab->image[tab->img_id], oo, ft_point_to_pixel(&tab->camera, tab->camera.yaw.axis), 0xFFFF00FF);
-	ft_plot_line(&tab->image[tab->img_id], oo, ft_point_to_pixel(&tab->camera, tab->camera.pitch.axis), 0xFFFF00FF);
+	oo = ft_point_to_pixel(&tab->camera, \
+	(t_point){(t_vector3){0, 0, 0}, 0xFFFFFFFF});
+	ox = ft_point_to_pixel(&tab->camera, \
+	(t_point){(t_vector3){10, 0, 0}, 0xFFFF0000});
+	oy = ft_point_to_pixel(&tab->camera, \
+	(t_point){(t_vector3){0, 10, 0}, 0xFF00FF00});
+	oz = ft_point_to_pixel(&tab->camera, \
+	(t_point){(t_vector3){0, 0, 10}, 0xFF0000FF});
+	ft_plot_line(&tab->image[tab->img_id], oo, ox);
+	ft_plot_line(&tab->image[tab->img_id], oo, oy);
+	ft_plot_line(&tab->image[tab->img_id], oo, oz);
+	
 	
 	i = 0;
 	while (i < tab->geo.nedges)
 	{
-		p1 = ft_point_to_pixel(&tab->camera, tab->geo.pts[tab->geo.edges[i].ptid[0]].p);
-		p2 = ft_point_to_pixel(&tab->camera, tab->geo.pts[tab->geo.edges[i].ptid[1]].p);
+		p1 = ft_point_to_pixel(&tab->camera, tab->geo.pts[tab->geo.edges[i].ptid[0]]);
+		p2 = ft_point_to_pixel(&tab->camera, tab->geo.pts[tab->geo.edges[i].ptid[1]]);
 		++i;
 		if ((p1.x >= tab->window.width && p2.x >= tab->window.width)
 			|| (p1.x < 0 && p2.x < 0)
 			|| (p1.y >= tab->window.height && p2.y >= tab->window.height)
 			|| (p1.y < 0 && p2.y < 0))
 			continue ;
-		ft_plot_line(&tab->image[tab->img_id], p1, p2, 0xFFFFFFFF);
+		ft_plot_line(&tab->image[tab->img_id], p1, p2);
 	}
 	i = 0;
 	while (i < tab->bbox.nedges)
 	{
-		p1 = ft_point_to_pixel(&tab->camera, tab->bbox.pts[tab->bbox.edges[i].ptid[0]].p);
-		p2 = ft_point_to_pixel(&tab->camera, tab->bbox.pts[tab->bbox.edges[i].ptid[1]].p);
+		p1 = ft_point_to_pixel(&tab->camera, tab->bbox.pts[tab->bbox.edges[i].ptid[0]]);
+		p2 = ft_point_to_pixel(&tab->camera, tab->bbox.pts[tab->bbox.edges[i].ptid[1]]);
 		++i;
 		if ((p1.x >= tab->window.width && p2.x >= tab->window.width)
 			|| (p1.x < 0 && p2.x < 0)
 			|| (p1.y >= tab->window.height && p2.y >= tab->window.height)
 			|| (p1.y < 0 && p2.y < 0))
 			continue ;
-		ft_plot_line(&tab->image[tab->img_id], p1, p2, 0xFFFF00FF);
+		ft_plot_line(&tab->image[tab->img_id], p1, p2);
 	}
+	
 
 	mlx_put_image_to_window(tab->mlx, \
 							tab->window.ptr, tab->image[tab->img_id].img_ptr, 0, 0);

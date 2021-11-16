@@ -6,6 +6,7 @@ HEAD_DIR	= includes/
 BUILD_DIR		= build/
 BUILD_SUBDIRS	= camera/	\
 				  events/	\
+				  fdf/		\
 				  geometry/	\
 				  gnl/		\
 				  image/	\
@@ -16,7 +17,6 @@ BUILD_SUBDIRS	= camera/	\
 BUILD_SUBDIRS	:= $(addprefix $(BUILD_DIR), $(BUILD_SUBDIRS))
 
 SRCS_FILES	= main.c					\
-			  fdf_init.c				\
 			  camera/controls.c			\
 			  camera/isometric.c		\
 			  camera/update.c			\
@@ -24,11 +24,15 @@ SRCS_FILES	= main.c					\
 			  events/button_released.c	\
 			  events/close.c			\
 			  events/cursor_moved.c		\
+			  fdf/fdf_init.c			\
+			  fdf/geo_init.c			\
 			  geometry/add.c			\
 			  geometry/bbox.c			\
 			  geometry/geometry.c		\
+			  geometry/modify.c			\
 			  gnl/get_next_line.c		\
 			  image/clear_image.c		\
+			  image/color_lerp.c		\
 			  image/image.c				\
 			  image/mlx_pixel_put.c		\
 			  image/pixel.c				\

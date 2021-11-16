@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cursor_moved.c                                     :+:      :+:    :+:   */
+/*   modify.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 05:19:24 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 08:45:11 by sotherys         ###   ########.fr       */
+/*   Created: 2021/11/16 08:43:26 by sotherys          #+#    #+#             */
+/*   Updated: 2021/11/16 08:46:13 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "geometry.h"
 
-int	ft_cursor_moved(int x, int y, t_fdf *tab)
+void	ft_geometry_translate(t_geometry *geo, t_vector3 v)
 {
-	if (tab->lmb)
+	size_t	i;
+
+	i = 0;
+	while (i < geo->npts)
 	{
-		ft_camera_rotate(&tab->camera, x - tab->cursor.x, y - tab->cursor.y);
-		ft_test_axis(tab);
+		geo->pts[i].p = ft_vector3_sum2(geo->pts[i].p, v);
+		++i;
 	}
-	else if (tab->mmb)
+}
+
+void	ft_geometry_scale(t_geometry *geo, t_vector3 v)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < geo->npts)
 	{
-		ft_camera_move(&tab->camera, y - tab->cursor.y, tab->cursor.x - x);
-		tab->cursor = (t_pixel){x, y, 0};
-		ft_test_axis(tab);
+		geo->pts[i].p = (t_vector3){geo->pts[i].p.x * v.x, \
+									geo->pts[i].p.y * v.y, \
+									geo->pts[i].p.z * v.z};
+		++i;
 	}
-	return (0);
 }

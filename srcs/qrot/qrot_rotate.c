@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:18:56 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/10 02:42:07 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:33:24 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_vector3	ft_qrot_rotate(t_vector3 pt, t_qrot q)
 {
-	if (ft_fabs(q.angle) < QROT_EPS)
+	if (ft_fabs(q.angle) < EPS)
 		return (pt);
 	return (\
 	ft_vector3_sum3(\
