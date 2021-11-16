@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 05:19:24 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 10:59:52 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:39:01 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ int	ft_cursor_moved(int x, int y, t_fdf *tab)
 {
 	if (tab->lmb)
 	{
-		ft_camera_rotate(&tab->camera, x - tab->cursor.x, y - tab->cursor.y);
-		ft_camera_rotate(&tab->axis_cam, (x - tab->cursor.x) / 10, \
-											(y - tab->cursor.y) / 10);
+		ft_camera_rotate(&tab->camera, \
+		2 * PI * (x - tab->cursor.x) / tab->window.width, \
+		2 * PI * (y - tab->cursor.y) / tab->window.width);
+		ft_camera_rotate(&tab->axis_cam, \
+		2 * PI * (x - tab->cursor.x) / tab->window.width, \
+		2 * PI * (y - tab->cursor.y) / tab->window.width);
 		ft_test_axis(tab);
 	}
 	else if (tab->mmb)

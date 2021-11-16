@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 10:55:09 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 13:38:22 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,20 @@
 
 void	ft_test_axis(t_fdf *tab)
 {
+	t_pixel	o[3];
+
 	ft_clear_image(&tab->image[tab->img_id]);
 	ft_render_geo(&tab->image[tab->img_id], &tab->geo, &tab->camera);
 	ft_render_geo(&tab->image[tab->img_id], &tab->axis_geo, &tab->axis_cam);
 	mlx_put_image_to_window(tab->mlx, \
-							tab->window.ptr, tab->image[tab->img_id].img_ptr, 0, 0);
+	tab->window.ptr, tab->image[tab->img_id].img_ptr, 0, 0);
 	tab->img_id = (tab->img_id + 1) % FDF_TMP_IMG;
-
-	//mlx_string_put(tab->mlx, tab->window.ptr, ox.x, ox.y, 0xFFFFFFFF, "x");
-	//mlx_string_put(tab->mlx, tab->window.ptr, oy.x, oy.y, 0xFFFFFFFF, "y");
-	//mlx_string_put(tab->mlx, tab->window.ptr, oz.x, oz.y, 0xFFFFFFFF, "z");
+	o[0] = ft_point_to_pixel(&tab->axis_cam, tab->axis_geo.pts[1]);
+	o[1] = ft_point_to_pixel(&tab->axis_cam, tab->axis_geo.pts[3]);
+	o[2] = ft_point_to_pixel(&tab->axis_cam, tab->axis_geo.pts[5]);
+	mlx_string_put(tab->mlx, tab->window.ptr, o[0].x, o[0].y, 0xFFFF0000, "x");
+	mlx_string_put(tab->mlx, tab->window.ptr, o[1].x, o[1].y, 0xFF00FF00, "y");
+	mlx_string_put(tab->mlx, tab->window.ptr, o[2].x, o[2].y, 0xFF0000FF, "z");
 }
 
 void	ft_fdf(char *filename)

@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 09:52:29 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 08:44:57 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:21:52 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ static void	ft_mmb_pressed(int x, int y, t_fdf *tab)
 	tab->cursor = (t_pixel){x, y, 0};
 }
 
-static int	ft_zoom(int x, int y, t_camera *camera, double scale)
-{
-	camera->plane.left += scale * x / camera->plane.pixel_width;
-	camera->plane.right -= scale * (camera->res.width - x) \
-							/ camera->plane.pixel_width;
-	camera->plane.up -= scale * y / camera->plane.pixel_height;
-	camera->plane.down += scale * (camera->res.height - y) \
-							/ camera->plane.pixel_height;
-	ft_camera_update_plane(camera);
-	return (0);
-}
-
 int	ft_button_pressed(int keycode, int x, int y, t_fdf *tab)
 {
 	if (keycode == LMB)
@@ -48,8 +36,8 @@ int	ft_button_pressed(int keycode, int x, int y, t_fdf *tab)
 	else if (keycode == MMB)
 		ft_mmb_pressed(x, y, tab);
 	else if (keycode == SCRL_UP)
-		ft_zoom(x, y, &tab->camera, 0.1);
+		ft_camera_zoom(x, y, &tab->camera, 0.1);
 	else if (keycode == SCRL_DOWN)
-		ft_zoom(x, y, &tab->camera, -0.1);
+		ft_camera_zoom(x, y, &tab->camera, -0.1);
 	return (0);
 }

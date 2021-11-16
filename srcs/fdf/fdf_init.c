@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 10:37:06 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:17:22 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_bool	ft_fdf_init(t_fdf *tab)
 	ft_camera_isometric(&tab->axis_cam, \
 	(t_res){ft_min(FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT) / 10, \
 			ft_min(FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT) / 10});
+	ft_camera_fit_geo(&tab->camera, &tab->geo);
 	tab->img_id = 0;
 	tab->lmb = false;
 	tab->mmb = false;

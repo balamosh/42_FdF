@@ -6,15 +6,13 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 10:41:04 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 11:36:10 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:35:48 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
 
-#include <stdio.h>
-
-static t_pixel	ft_point_to_pixel(t_camera *cam, t_point pt)
+t_pixel	ft_point_to_pixel(t_camera *cam, t_point pt)
 {
 	t_vector3	project_pt;
 	t_pixel		pix;
@@ -35,7 +33,7 @@ void	ft_render_geo(t_image *img, t_geometry *geo, t_camera *cam)
 	size_t	i;
 	t_pixel	p1;
 	t_pixel	p2;
-	
+
 	i = 0;
 	while (i < geo->nedges)
 	{
@@ -49,4 +47,29 @@ void	ft_render_geo(t_image *img, t_geometry *geo, t_camera *cam)
 			continue ;
 		ft_plot_line(img, p1, p2);
 	}
+}
+
+void	ft_camera_fit_geo(t_camera *cam, t_geometry *geo)
+{
+	t_vector3	min;
+	t_vector3	max;
+	t_vector3	curr;
+	size_t		i;
+
+	min = ft_qrot_rotate(geo->pts[0].p, cam->orient);
+	max = min;
+	i = 1;
+	while (i < geo->npts)
+	{
+		curr = ft_qrot_rotate(geo->pts[i++].p, cam->orient);
+		max = (t_vector3){ft_fmax(max.x, curr.x), ft_fmax(max.y, curr.y), 0};
+		min = (t_vector3){ft_fmin(min.x, curr.x), ft_fmin(min.y, curr.y), 0};
+	}
+	cam->plane.left = min.x;
+	cam->plane.right = max.x;
+	cam->plane.up = max.y;
+	cam->plane.down = min.y;
+	ft_camera_update_plane(cam);
+	ft_camera_update_plane_ratio(cam);
+	ft_camera_zoom(cam->res.width / 2, cam->res.height / 2, cam, -0.1);
 }
