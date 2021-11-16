@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 05:18:36 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 05:25:00 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:57:40 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_button_released(int keycode, int x, int y, t_fdf *tab)
 	{
 		tab->lmb = false;
 		ft_camera_update_projection(&tab->camera);
+		ft_camera_update_projection(&tab->axis_cam);
 	}
 	else if (keycode == MMB)
 		tab->mmb = false;

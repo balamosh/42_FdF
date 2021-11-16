@@ -27,6 +27,7 @@ SRCS_FILES	= main.c					\
 			  fdf/fdf_init.c			\
 			  fdf/geo_init.c			\
 			  geometry/add.c			\
+			  geometry/axis.c			\
 			  geometry/bbox.c			\
 			  geometry/geometry.c		\
 			  geometry/modify.c			\
@@ -37,6 +38,7 @@ SRCS_FILES	= main.c					\
 			  image/mlx_pixel_put.c		\
 			  image/pixel.c				\
 			  image/plot_line.c			\
+			  image/render_geo.c		\
 			  libft/abs.c				\
 			  libft/atoi.c				\
 			  libft/fabs.c				\

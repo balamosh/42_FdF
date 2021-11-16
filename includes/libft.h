@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:06:54 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 08:33:24 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 11:07:20 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "bool.h"
 
 # define PI 3.14159265359
-# define EPS 0.001
+# define EPS 0.00001
 
 t_bool	ft_malloc(void **ptr, size_t n);
 int		ft_abs(int x);

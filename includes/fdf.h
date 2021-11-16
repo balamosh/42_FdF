@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 08:03:22 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/16 09:48:57 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_fdf
 	t_camera	camera;
 	t_geometry	geo;
 	t_geometry	bbox;
+	t_camera	axis_cam;
+	t_geometry	axis_geo;
 	t_pixel		cursor;
 	t_bool		lmb;
 	t_bool		mmb;
