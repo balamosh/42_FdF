@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 10:41:04 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 15:35:48 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:37:35 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_camera_fit_geo(t_camera *cam, t_geometry *geo)
 	t_vector3	curr;
 	size_t		i;
 
+	if (!geo->npts)
+		return ;
 	min = ft_qrot_rotate(geo->pts[0].p, cam->orient);
 	max = min;
 	i = 1;

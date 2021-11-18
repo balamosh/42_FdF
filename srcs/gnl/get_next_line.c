@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 15:04:58 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 15:12:30 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:13:29 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	*substr_next_line(char **s, int rd, size_t offset)
 
 char	*get_next_line(int fd)
 {
-	static char	*s[FD_SIZE];
+	static char	*s;
 	char		buff[BUFFER_SIZE + 1];
 	char		*tmp;
 	int			rd;
@@ -99,17 +99,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	rd = 1;
 	offset = 0;
-	while (!ft_strchr_gnl(s[fd], '\n', &offset))
+	while (!ft_strchr_gnl(s, '\n', &offset))
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
 		if (rd <= 0)
 			break ;
 		buff[rd] = '\0';
-		tmp = ft_strjoin_gnl(s[fd], buff, offset, rd);
+		tmp = ft_strjoin_gnl(s, buff, offset, rd);
 		if (!tmp)
 			return (NULL);
-		free(s[fd]);
-		s[fd] = tmp;
+		free(s);
+		s = tmp;
 	}
-	return (substr_next_line(s + fd, rd, offset));
+	return (substr_next_line(&s, rd, offset));
 }

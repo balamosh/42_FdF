@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 10:51:02 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 10:56:21 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:33:35 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,36 +30,48 @@ static t_bool	ft_fdf_geo_alloc(t_geometry *geo, int fd)
 		if (curr)
 			geo->sedges += curr - 1 + ft_min(curr, prev);
 		prev = curr;
+		free(line);
 		line = get_next_line(fd);
 	}
 	return (ft_geometry(geo, geo->spts, geo->sedges));
 }
 
-static t_bool	ft_fdf_geo_fill(t_geometry *geo, int fd)
+void	ft_fdf_geo_fill_next_line(t_geometry *geo, char *line, int z)
 {
 	char		**nbrs;
-	t_vector3	pt;
-	int			prev;
+	static int	prev;
+	int			x;
 
-	prev = 0;
-	pt.z = 0;
-	nbrs = ft_split(get_next_line(fd), ' ');
-	while (nbrs)
+	nbrs = ft_split(line, ' ');
+	if (!nbrs)
+		return ;
+	x = 0;
+	while (nbrs[x])
 	{
-		pt.x = 0;
-		while (nbrs[(int) pt.x])
-		{
-			pt.y = ft_atoi(nbrs[(int) pt.x]);
-			ft_geometry_add_point(geo, (t_point){pt, 0});
-			if (pt.x > 0)
-				ft_geometry_add_edge(geo, geo->npts - 1, geo->npts - 2);
-			if (pt.z > 0 && pt.x < prev)
-				ft_geometry_add_edge(geo, geo->npts - 1, geo->npts - prev - 1);
-			++pt.x;
-		}
-		prev = pt.x;
-		++pt.z;
-		nbrs = ft_split(get_next_line(fd), ' ');
+		ft_geometry_add_point(geo, \
+		(t_point){(t_vector3){x, ft_atoi(nbrs[x]), z}, 0});
+		if (x > 0)
+			ft_geometry_add_edge(geo, geo->npts - 1, geo->npts - 2);
+		if (z > 0 && x < prev)
+			ft_geometry_add_edge(geo, geo->npts - 1, geo->npts - prev - 1);
+		++x;
+	}
+	prev = x;
+	ft_split_free(nbrs);
+}
+
+static t_bool	ft_fdf_geo_fill(t_geometry *geo, int fd)
+{
+	char	*line;
+	int		z;
+
+	z = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		ft_fdf_geo_fill_next_line(geo, line, z++);
+		free(line);
+		line = get_next_line(fd);
 	}
 	return (geo->npts == geo->spts && geo->nedges == geo->sedges);
 }

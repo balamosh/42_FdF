@@ -30,6 +30,7 @@ SRCS_FILES	= main.c					\
 			  geometry/add.c			\
 			  geometry/axis.c			\
 			  geometry/bbox.c			\
+			  geometry/free.c			\
 			  geometry/geometry.c		\
 			  geometry/modify.c			\
 			  gnl/get_next_line.c		\

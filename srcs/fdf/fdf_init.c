@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/17 04:04:38 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:37:19 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,26 @@ t_bool	ft_fdf_images_init(t_image *image, void *mlx, int width, int height)
 	return (true);
 }
 
+static void	ft_fdf_null(t_fdf *tab)
+{
+	size_t	i;
+
+	tab->mlx = NULL;
+	tab->window.ptr = NULL;
+	i = 0;
+	while (i < FDF_TMP_IMG)
+		tab->image[i++].img_ptr = NULL;
+	tab->geo.pts = NULL;
+	tab->geo.edges = NULL;
+	tab->bbox.pts = NULL;
+	tab->bbox.edges = NULL;
+	tab->axis_geo.pts = NULL;
+	tab->axis_geo.edges = NULL;
+}
+
 t_bool	ft_fdf_init(t_fdf *tab)
 {
+	ft_fdf_null(tab);
 	tab->error = true;
 	if (!(ft_fdf_geo_init(&tab->geo, &tab->bbox, tab->filename) \
 		&& ft_geometry_axis(&tab->axis_geo) \

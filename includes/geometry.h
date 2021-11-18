@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 01:21:53 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 10:18:28 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 11:25:03 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_geometry
 }				t_geometry;
 
 t_bool	ft_geometry(t_geometry *geo, size_t spts, size_t sedges);
+void	ft_geometry_free(t_geometry *geo);
 void	ft_geometry_add_point(t_geometry *geo, t_point pt);
 void	ft_geometry_add_edge(t_geometry *geo, size_t ptid1, size_t ptid2);
 t_bool	ft_geometry_bbox(t_geometry *bbox, t_geometry *geo);

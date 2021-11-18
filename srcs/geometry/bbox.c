@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 05:58:05 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 09:00:13 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:24:17 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ t_bool	ft_geometry_bbox(t_geometry *bbox, t_geometry *geo)
 	t_vector3	pt_max;
 	size_t		i;
 
+	if (!geo->npts)
+		return (ft_bbox_from_corners(bbox, \
+		(t_vector3){-0.5, -0.5, -0.5}, (t_vector3){0.5, 0.5, 0.5}));
 	pt_min = geo->pts[0].p;
 	pt_max = geo->pts[0].p;
 	i = 1;
