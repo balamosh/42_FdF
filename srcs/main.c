@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 12:15:43 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 14:02:45 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	ft_test_axis(t_fdf *tab)
 	t_pixel	o[3];
 
 	ft_clear_image(&tab->image[tab->img_id]);
-	ft_render_geo(&tab->image[tab->img_id], &tab->geo, &tab->camera);
+	if (!tab->render_bbox)
+		ft_render_geo(&tab->image[tab->img_id], &tab->geo, &tab->camera);
+	else
+		ft_render_geo(&tab->image[tab->img_id], &tab->bbox, &tab->camera);
 	ft_render_geo(&tab->image[tab->img_id], &tab->axis_geo, &tab->axis_cam);
 	mlx_put_image_to_window(tab->mlx, \
 	tab->window.ptr, tab->image[tab->img_id].img_ptr, 0, 0);
@@ -38,6 +41,7 @@ void	ft_fdf(char *filename)
 	tab.filename = filename;
 	if (!ft_fdf_init(&tab))
 		ft_close(&tab);
+	mlx_hook(tab.window.ptr, 2, 1L << 0, ft_key_pressed, &tab);
 	mlx_hook(tab.window.ptr, 4, 1L << 2, ft_button_pressed, &tab);
 	mlx_hook(tab.window.ptr, 5, 1L << 3, ft_button_released, &tab);
 	mlx_hook(tab.window.ptr, 6, 1L << 6, ft_cursor_moved, &tab);

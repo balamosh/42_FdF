@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 12:37:19 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:05:22 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_bool	ft_fdf_init(t_fdf *tab)
 	tab->img_id = 0;
 	tab->lmb = false;
 	tab->mmb = false;
+	tab->render_bbox = false;
 	tab->error = false;
 	return (true);
 }

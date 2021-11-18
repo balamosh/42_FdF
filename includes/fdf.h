@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 10:56:08 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:05:02 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_fdf
 	t_pixel		cursor;
 	t_bool		lmb;
 	t_bool		mmb;
+	t_bool		render_bbox;
 	t_bool		error;
 }				t_fdf;
 
@@ -57,6 +58,7 @@ void	ft_test_axis(t_fdf *tab);
 int		ft_button_pressed(int keycode, int x, int y, t_fdf *tab);
 int		ft_button_released(int keycode, int x, int y, t_fdf *tab);
 int		ft_cursor_moved(int x, int y, t_fdf *tab);
+int		ft_key_pressed(int keycode, t_fdf *tab);
 int		ft_close(t_fdf *tab);
 
 #endif

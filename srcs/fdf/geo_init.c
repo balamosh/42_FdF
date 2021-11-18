@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 08:03:02 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 12:35:48 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:52:31 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ t_bool	ft_fdf_geo_init(t_geometry *geo, t_geometry *bbox, char *filename)
 		ft_fdf_geo_color(geo, bbox->pts[0].p.y, bbox->pts[7].p.y);
 		ft_fdf_geo_fit(geo, bbox);
 	}
+	ft_fdf_geo_color(bbox, bbox->pts[0].p.y, bbox->pts[7].p.y);
 	return (true);
 }

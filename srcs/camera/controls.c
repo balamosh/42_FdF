@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 04:52:50 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 14:22:03 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 14:42:55 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	ft_camera_move(t_camera *camera, double up, double right)
 	camera->plane.down += up;
 	camera->plane.left += right;
 	camera->plane.right += right;
+}
+
+void	ft_camera_copy_orient(t_camera *from, t_camera *to)
+{
+	to->projection = from->projection;
+	to->orient = from->orient;
+	to->pitch = from->pitch;
+	to->yaw = from->yaw;
 }
 
 void	ft_camera_zoom(int x, int y, t_camera *camera, double scale)

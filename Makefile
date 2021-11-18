@@ -18,12 +18,14 @@ BUILD_SUBDIRS	:= $(addprefix $(BUILD_DIR), $(BUILD_SUBDIRS))
 
 SRCS_FILES	= main.c					\
 			  camera/controls.c			\
-			  camera/isometric.c		\
+			  camera/projections_1.c	\
+			  camera/projections_2.c	\
 			  camera/update.c			\
 			  events/button_pressed.c	\
 			  events/button_released.c	\
 			  events/close.c			\
 			  events/cursor_moved.c		\
+			  events/key_pressed.c		\
 			  fdf/fdf_init.c			\
 			  fdf/geo_init.c			\
 			  fdf/geo_read.c			\
