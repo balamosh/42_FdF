@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 14:06:54 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 11:07:20 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 10:15:44 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 char	**ft_split(const char *str, char c);
 size_t	ft_split_word_count(const char *str, char c);
+void	ft_split_free(char **out);
 
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);

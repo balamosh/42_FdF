@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:03:34 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 14:17:22 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/17 04:04:38 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ t_bool	ft_fdf_images_init(t_image *image, void *mlx, int width, int height)
 
 t_bool	ft_fdf_init(t_fdf *tab)
 {
+	tab->error = true;
 	if (!(ft_fdf_geo_init(&tab->geo, &tab->bbox, tab->filename) \
 		&& ft_geometry_axis(&tab->axis_geo) \
 		&& ft_mlx_init(&tab->mlx) \
-		&& ft_window(&tab->window, tab->mlx, \
-						(t_res){FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT}, "fdf") \
 		&& ft_fdf_images_init(tab->image, tab->mlx, \
-								FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT)))
+								FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT) \
+		&& ft_window(&tab->window, tab->mlx, \
+						(t_res){FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT}, "fdf")))
 		return (false);
 	ft_camera_isometric(&tab->camera, \
 	(t_res){FDF_WINDOW_WIDTH, FDF_WINDOW_HEIGHT});
@@ -52,5 +53,6 @@ t_bool	ft_fdf_init(t_fdf *tab)
 	tab->img_id = 0;
 	tab->lmb = false;
 	tab->mmb = false;
+	tab->error = false;
 	return (true);
 }

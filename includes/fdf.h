@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 09:48:57 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 10:56:08 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ typedef struct s_fdf
 	t_pixel		cursor;
 	t_bool		lmb;
 	t_bool		mmb;
+	t_bool		error;
 }				t_fdf;
 
+t_bool	ft_fdf_geo_read(t_geometry *geo, char *filename);
 t_bool	ft_fdf_geo_init(t_geometry *geo, t_geometry *bbox, char *filename);
 t_bool	ft_fdf_init(t_fdf *tab);
 void	ft_test_axis(t_fdf *tab);

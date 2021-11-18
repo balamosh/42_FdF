@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 01:20:03 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/15 01:20:41 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/17 01:06:57 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_bool	ft_image(t_image *image, \
 							int width, \
 							int height)
 {
-	image->mlx = mlx;
 	image->img_ptr = mlx_new_image(mlx, width, height);
 	if (!image->img_ptr)
 		return (false);

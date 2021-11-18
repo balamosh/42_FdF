@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 15:05:24 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 15:12:56 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/17 01:11:31 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #  define BUFFER_SIZE 128
 # endif
 
-# define FD_SIZE 12000
+# define FD_SIZE 5
 
 char	*get_next_line(int fd);
 

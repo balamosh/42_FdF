@@ -6,12 +6,15 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 03:24:28 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/16 13:38:22 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:48:38 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keycodes.h"
+
+#include <sys/time.h>
+#include <sys/resource.h>
 
 void	ft_test_axis(t_fdf *tab)
 {
@@ -48,6 +51,11 @@ void	ft_fdf(char *filename)
 
 int	main(int ac, char **av)
 {
+	//struct rlimit	limit;
+
+	//limit.rlim_cur = 1024 * 40000;
+	//limit.rlim_max = 1024 * 40000;
+	//setrlimit(RLIMIT_AS, &limit);
 	if (ac == 2)
 		ft_fdf(av[1]);
 	else if (ac == 1)

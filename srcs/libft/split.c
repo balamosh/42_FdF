@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 14:57:30 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/12 15:01:48 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 10:41:03 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,11 @@ size_t	ft_split_word_count(const char *str, char c)
 	return (wc);
 }
 
-static int	ft_substr_to_sep(const char *str, char c, char **dup)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != c)
-		++i;
-	if (i == 0)
-		return (0);
-	*dup = ft_substr(str, 0, i);
-	return (i);
-}
-
-char	**ft_split(const char *str, char c)
+static char	**ft_split_populate(char **out, const char *str, char c)
 {
 	size_t	wi;
-	char	**out;
+	size_t	i;
 
-	if (!str)
-		return (NULL);
-	out = (char **) malloc(sizeof(char *) * (ft_split_word_count(str, c) + 1));
-	if (NULL == out)
-		return (NULL);
 	wi = 0;
 	while (*str != '\0')
 	{
@@ -69,9 +51,40 @@ char	**ft_split(const char *str, char c)
 			++str;
 			continue ;
 		}
-		str += ft_substr_to_sep(str, c, out + wi);
+		i = 0;
+		while (str[i] != '\0' && str[i] != c)
+			++i;
+		out[wi] = ft_substr(str, 0, i);
+		str += i;
+		if (!out[wi])
+		{
+			ft_split_free(out);
+			return (NULL);
+		}
 		++wi;
 	}
 	out[wi] = NULL;
 	return (out);
+}
+
+void	ft_split_free(char **out)
+{
+	size_t	i;
+
+	i = 0;
+	while (out[i])
+		free(out[i++]);
+	free(out);
+}
+
+char	**ft_split(const char *str, char c)
+{
+	char	**out;
+
+	if (!str)
+		return (NULL);
+	out = (char **) malloc(sizeof(char *) * (ft_split_word_count(str, c) + 1));
+	if (!out)
+		return (NULL);
+	return (ft_split_populate(out, str, c));
 }

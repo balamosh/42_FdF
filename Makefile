@@ -26,6 +26,7 @@ SRCS_FILES	= main.c					\
 			  events/cursor_moved.c		\
 			  fdf/fdf_init.c			\
 			  fdf/geo_init.c			\
+			  fdf/geo_read.c			\
 			  geometry/add.c			\
 			  geometry/axis.c			\
 			  geometry/bbox.c			\
