@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 02:58:49 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 22:35:17 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 23:40:32 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@
 # define KEY_3 51
 # define KEY_4 52
 # define KEY_5 53
-# define KEY_6 54
 
 #endif

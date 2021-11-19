@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:11:02 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/17 01:06:42 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 23:43:39 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_image
 	int		endian;
 }				t_image;
 
-t_pixel	ft_pixel(int x, int y);
 t_bool	ft_image(t_image *image, \
 							void *mlx, \
 							int width, \

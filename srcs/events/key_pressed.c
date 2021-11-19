@@ -6,14 +6,12 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 12:55:09 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 22:40:17 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/18 23:40:43 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keycodes.h"
-
-#include <stdio.h>
 
 static t_bool	ft_key_camera_rotate(int keycode, t_fdf *tab)
 {
@@ -50,8 +48,6 @@ static t_bool	ft_key_camera_view(int keycode, t_fdf *tab)
 	else if (keycode == KEY_4)
 		ft_camera_side(&tab->camera, tab->camera.res);
 	else if (keycode == KEY_5)
-		ft_camera_dimetric(&tab->camera, tab->camera.res);
-	else if (keycode == KEY_6)
 		ft_camera_trimetric(&tab->camera, tab->camera.res);
 	else
 		return (false);
@@ -62,7 +58,6 @@ static t_bool	ft_key_camera_view(int keycode, t_fdf *tab)
 
 int	ft_key_pressed(int keycode, t_fdf *tab)
 {
-	printf("KEY PRESSED: %d\n", keycode);
 	if (keycode == KEY_H)
 		ft_camera_fit_geo(&tab->camera, &tab->geo);
 	else if (keycode == KEY_B)

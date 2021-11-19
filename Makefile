@@ -18,8 +18,7 @@ BUILD_SUBDIRS	:= $(addprefix $(BUILD_DIR), $(BUILD_SUBDIRS))
 
 SRCS_FILES	= main.c					\
 			  camera/controls.c			\
-			  camera/projections_1.c	\
-			  camera/projections_2.c	\
+			  camera/projections.c	\
 			  camera/update.c			\
 			  events/button_pressed.c	\
 			  events/button_released.c	\
@@ -40,7 +39,6 @@ SRCS_FILES	= main.c					\
 			  image/color_lerp.c		\
 			  image/image.c				\
 			  image/mlx_pixel_put.c		\
-			  image/pixel.c				\
 			  image/plot_line.c			\
 			  image/render_geo.c		\
 			  libft/abs.c				\
