@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 05:19:24 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 13:52:19 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/23 06:48:14 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	ft_cursor_moved(int x, int y, t_fdf *tab)
 		ft_camera_update_projection(&tab->camera);
 		ft_camera_update_projection(&tab->axis_cam);
 		tab->cursor = (t_pixel){x, y, 0};
-		ft_test_axis(tab);
+		ft_fdf_render(tab);
 	}
 	else if (tab->mmb)
 	{
 		ft_camera_move(&tab->camera, y - tab->cursor.y, tab->cursor.x - x);
 		tab->cursor = (t_pixel){x, y, 0};
-		ft_test_axis(tab);
+		ft_fdf_render(tab);
 	}
 	return (0);
 }

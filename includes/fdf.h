@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 23:19:20 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/23 06:41:26 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/23 06:48:14 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_fdf
 }				t_fdf;
 
 void	ft_fdf(char *filename);
-void	ft_test_axis(t_fdf *tab);
+void	ft_fdf_render(t_fdf *tab);
 
 /*
 ** UTILS

@@ -6,14 +6,14 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 06:35:52 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/23 06:35:53 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/23 06:48:14 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keycodes.h"
 
-void	ft_test_axis(t_fdf *tab)
+void	ft_fdf_render(t_fdf *tab)
 {
 	t_pixel	o[3];
 
@@ -46,6 +46,6 @@ void	ft_fdf(char *filename)
 	mlx_hook(tab.window.ptr, 5, 1L << 3, ft_button_released, &tab);
 	mlx_hook(tab.window.ptr, 6, 1L << 6, ft_cursor_moved, &tab);
 	mlx_hook(tab.window.ptr, 17, 1L << 1, ft_close, &tab);
-	ft_test_axis(&tab);
+	ft_fdf_render(&tab);
 	mlx_loop(tab.mlx);
 }

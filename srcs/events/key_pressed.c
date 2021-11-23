@@ -6,7 +6,7 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 12:55:09 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/18 23:40:43 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/23 06:48:14 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	ft_key_pressed(int keycode, t_fdf *tab)
 		ft_close(tab);
 	else
 		return (0);
-	ft_test_axis(tab);
+	ft_fdf_render(tab);
 	return (0);
 }
