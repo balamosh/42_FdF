@@ -26,6 +26,7 @@ SRCS_FILES	= main.c					\
 			  events/cursor_moved.c		\
 			  events/key_pressed.c		\
 			  fdf/fdf_init.c			\
+			  fdf/fdf.c					\
 			  fdf/geo_init.c			\
 			  fdf/geo_read.c			\
 			  geometry/add.c			\
@@ -35,10 +36,10 @@ SRCS_FILES	= main.c					\
 			  geometry/geometry.c		\
 			  geometry/modify.c			\
 			  gnl/get_next_line.c		\
-			  image/clear_image.c		\
+			  image/clear.c				\
 			  image/color_lerp.c		\
 			  image/image.c				\
-			  image/mlx_pixel_put.c		\
+			  image/pixel_put.c			\
 			  image/plot_line.c			\
 			  image/render_geo.c		\
 			  libft/abs.c				\

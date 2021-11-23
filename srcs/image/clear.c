@@ -6,26 +6,26 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 12:16:44 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/10 03:40:46 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/23 06:32:18 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
 
-void	ft_clear_image(t_image *img)
+void	ft_image_clear(t_image *img)
 {
-	int	px;
-	int	py;
+	t_pixel	p;
 
-	px = 0;
-	while (px < img->width)
+	p.cd = 0xFF000000;
+	p.x = 0;
+	while (p.x < img->width)
 	{
-		py = 0;
-		while (py < img->height)
+		p.y = 0;
+		while (p.y < img->height)
 		{
-			ft_mlx_pixel_put(img, px, py, 0xFF000000);
-			++py;
+			ft_image_pixel_put(img, &p);
+			++p.y;
 		}
-		++px;
+		++p.x;
 	}
 }

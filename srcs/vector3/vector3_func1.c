@@ -6,21 +6,11 @@
 /*   By: sotherys <sotherys@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 13:18:38 by sotherys          #+#    #+#             */
-/*   Updated: 2021/11/13 00:40:41 by sotherys         ###   ########.fr       */
+/*   Updated: 2021/11/23 06:07:03 by sotherys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector3.h"
-
-t_vector3	ft_vector3(double x, double y, double z)
-{
-	t_vector3	v;
-
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
-}
 
 t_vector3	ft_vector3_sum2(t_vector3 a, t_vector3 b)
 {
