@@ -2,23 +2,11 @@ NAME		= fdf
 
 SRCS_DIR	= srcs/
 HEAD_DIR	= includes/
-
-BUILD_DIR		= build/
-BUILD_SUBDIRS	= camera/	\
-				  events/	\
-				  fdf/		\
-				  geometry/	\
-				  gnl/		\
-				  image/	\
-				  libft/	\
-				  qrot/		\
-				  vector3/	\
-				  window/
-BUILD_SUBDIRS	:= $(addprefix $(BUILD_DIR), $(BUILD_SUBDIRS))
+BUILD_DIR	= build/
 
 SRCS_FILES	= main.c					\
 			  camera/controls.c			\
-			  camera/projections.c	\
+			  camera/projections.c		\
 			  camera/update.c			\
 			  events/button_pressed.c	\
 			  events/button_released.c	\
@@ -73,7 +61,7 @@ OBJS		= $(addprefix $(BUILD_DIR), $(OBJS_FILES))
 DEPS		= $(OBJS:.o=.d)
 
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -O3
+CFLAGS		= -Wall -Werror -Wextra -O3 -MMD
 
 OS			= $(shell uname)
 ifeq ($(OS), Linux)
@@ -88,25 +76,22 @@ endif
 
 all: $(NAME)
 
+bonus: $(NAME)
+
 $(NAME): $(OBJS) $(MLX)
 	$(CC) $(OBJS) $(MLX_FLAGS) -o $(NAME)
 
--include $(DEPS)
+$(BUILD_DIR)%.o: $(SRCS_DIR)%.c $(BUILD_DIR)%.d
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -I $(HEAD_DIR) -I $(MLX_DIR) -o $@ -c $<
 
-$(BUILD_DIR)%.o: $(SRCS_DIR)%.c $(BUILD_DIR)%.d | $(BUILD_SUBDIRS)
-	$(CC) $(CFLAGS) -MMD -I $(HEAD_DIR) -I $(MLX_DIR) -o $@ -c $<
-
-$(BUILD_DIR)%.d: $(SRCS_DIR)%.c | $(BUILD_SUBDIRS)
-	$(CC) $(CFLAGS) -MMD -I $(HEAD_DIR) -I $(MLX_DIR) -o $(@:.d=.o) -c $<
-
-$(BUILD_SUBDIRS): | $(BUILD_DIR)
-	mkdir $@
-
-$(BUILD_DIR):
-	mkdir $@
+$(BUILD_DIR)%.d: ;
 
 $(MLX):
 	make -C $(MLX_DIR)
+
+$(DEPS):
+-include $(wildcard $(DEPS))
 
 clean: 
 	rm -rf $(BUILD_DIR)
@@ -119,4 +104,4 @@ re:
 	make fclean
 	make all
 
-.PHONY: all mlx clean fclean re
+.PHONY: all bonus clean fclean re
